@@ -1,0 +1,52 @@
+{
+  "name": "perch-components",
+  "version": "0.1.0",
+  "description": "React components for cross-application use at Perch Security",
+  "main": "lib/index.js",
+  "scripts": {
+    "lib": "babel src --out-dir lib",
+    "lint": "prettier --write src/**/*.{js,jsx} && eslint src/**",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usePF/perch-components.git"
+  },
+  "keywords": [
+    "perch"
+  ],
+  "author": "Charles Burgess",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usePF/perch-components/issues"
+  },
+  "homepage": "https://github.com/usePF/perch-components#readme",
+  "peerDependencies": {
+    "formik": ">=0.11.10",
+    "material-ui": ">=1.0.0-beta.29",
+    "react": ">=15.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "formik": "^0.11.10",
+    "material-ui": "^1.0.0-beta.31",
+    "prettier": "^1.10.2",
+    "react": ">=15.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "zxcvbn": "^4.4.2"
+  }
+}
