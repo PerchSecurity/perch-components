@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { debounce, isEqual } from 'lodash';
+import React from "react";
+import PropTypes from "prop-types";
+import { debounce, isEqual } from "lodash";
 
 const DEBOUNCE_DURATION = 1000;
 
@@ -12,7 +12,9 @@ class AutoSave extends React.Component {
     const valuesHaveChanged = !isEqual(newValues, oldValues);
 
     if (valuesHaveChanged) {
-      validationSchema.isValid(newValues).then(isValid => isValid && this.saveForm());
+      validationSchema
+        .isValid(newValues)
+        .then(isValid => isValid && this.saveForm());
     }
   }
 
@@ -24,11 +26,11 @@ class AutoSave extends React.Component {
 }
 
 AutoSave.propTypes = {
-  validationSchema: PropTypes.object.isRequired,
+  validationSchema: PropTypes.object.isRequired
 };
 
 AutoSave.contextTypes = {
-  formik: PropTypes.object,
+  formik: PropTypes.object
 };
 
 export default AutoSave;

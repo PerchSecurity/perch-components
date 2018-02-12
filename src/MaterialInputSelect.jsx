@@ -1,12 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { TextField } from 'material-ui';
+import React from "react";
+import PropTypes from "prop-types";
+import { TextField } from "material-ui";
 
-const MaterialInputSelect = ({ field, form: { touched, errors }, label, options, ...props }) => (
+const MaterialInputSelect = ({
+  field,
+  form: { touched, errors },
+  label,
+  options,
+  ...props
+}) => (
   <TextField
     {...props}
     {...field}
-    value={field.value || ''}
+    value={field.value || ""}
     error={Boolean(touched[field.name] && errors[field.name])}
     label={(touched[field.name] && errors[field.name]) || label}
     select
@@ -26,24 +32,24 @@ MaterialInputSelect.propTypes = {
     name: PropTypes.string,
     value: PropTypes.any,
     onChange: PropTypes.func,
-    onBlur: PropTypes.func,
+    onBlur: PropTypes.func
   }).isRequired,
   form: PropTypes.shape({
     touched: PropTypes.object,
-    errors: PropTypes.object,
+    errors: PropTypes.object
     // the rest of the formik bag too
   }).isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.any,
-      label: PropTypes.string,
-    }),
-  ),
+      label: PropTypes.string
+    })
+  )
 };
 
 MaterialInputSelect.defaultProps = {
-  options: [],
+  options: []
 };
 
 export default MaterialInputSelect;

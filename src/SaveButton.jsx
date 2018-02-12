@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button } from 'material-ui';
+import React from "react";
+import PropTypes from "prop-types";
+import { Button } from "material-ui";
 
 const SaveButton = (
   { label, validationSchema, ...props },
-  { formik: { values, isSubmitting } },
+  { formik: { values, isSubmitting } }
 ) => {
   const disabled = isSubmitting || !validationSchema.isValidSync(values);
   return (
@@ -16,11 +16,11 @@ const SaveButton = (
 
 SaveButton.propTypes = {
   label: PropTypes.string.isRequired,
-  validationSchema: PropTypes.object.isRequired,
+  validationSchema: PropTypes.object.isRequired
 };
 
 SaveButton.contextTypes = {
-  formik: PropTypes.object,
+  formik: PropTypes.object
 };
 
 export default SaveButton;

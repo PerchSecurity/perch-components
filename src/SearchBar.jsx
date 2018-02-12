@@ -1,29 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Icon, Input } from 'material-ui';
-import { withStyles } from 'material-ui/styles';
-import { grey } from 'material-ui/colors';
-import { debounce } from 'lodash';
+import React from "react";
+import PropTypes from "prop-types";
+import { Icon, Input } from "material-ui";
+import { withStyles } from "material-ui/styles";
+import { grey } from "material-ui/colors";
+import { debounce } from "lodash";
 
 const DEBOUNCE_DURATION = 300;
 
 const styles = {
   searchBar: {
     height: 64,
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center"
   },
   icon: {
     marginLeft: 8,
     marginRight: 16,
     color: grey[600],
-    alignSelf: 'center',
-    marginBottom: 4,
+    alignSelf: "center",
+    marginBottom: 4
   },
   input: {
     color: grey[800],
-    fontSize: 24,
-  },
+    fontSize: 24
+  }
 };
 
 class SearchBar extends React.Component {
@@ -49,7 +49,7 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(SearchBar);
