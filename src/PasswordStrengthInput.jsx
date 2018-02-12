@@ -25,6 +25,7 @@ const PasswordStrengthInput = ({
   field,
   form: { touched, errors },
   label,
+  minScore,
   ...props
 }) => {
   const { score, feedback } = field.value
@@ -44,6 +45,7 @@ const PasswordStrengthInput = ({
       helperTextClassName={field.value ? classes[score] : ""}
       label={(touched.password && errors.password) || label}
       error={Boolean(touched[field.name] && errors[field.name])}
+      validate={score < minScore ? "Password is too weak" : undefined}
     />
   );
 };
@@ -61,11 +63,13 @@ PasswordStrengthInput.propTypes = {
     errors: PropTypes.object
     // the rest of the formik bag too
   }).isRequired,
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  minScore: PropTypes.number
 };
 
 PasswordStrengthInput.defaultProps = {
-  value: null
+  value: null,
+  minScore: 3
 };
 
 export default withStyles(styles)(PasswordStrengthInput);
