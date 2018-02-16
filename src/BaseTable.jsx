@@ -16,14 +16,20 @@ const toggleDirection = direction => (direction === "asc" ? "desc" : "asc");
 const toggleSort = (column, prevColumn, prevDirection) =>
   column === prevColumn ? toggleDirection(prevDirection) : "asc";
 
-const HeaderCell = label => (
-  <TableCell padding="none" key={label}>
+const HeaderCell = (label, headerPadding) => (
+  <TableCell padding={headerPadding} key={label}>
     {label && label.toString().toUpperCase()}
   </TableCell>
 );
 
-const SortableHeaderCell = (column, onSort, sortColumn, sortDirection) => (
-  <TableCell padding="none" key={column.label}>
+const SortableHeaderCell = (
+  column,
+  headerPadding,
+  onSort,
+  sortColumn,
+  sortDirection
+) => (
+  <TableCell key={column.label} padding={headerPadding}>
     <TableSortLabel
       active={sortColumn === column.sortId}
       direction={sortDirection}
@@ -42,6 +48,7 @@ const SortableHeaderCell = (column, onSort, sortColumn, sortDirection) => (
 const BaseTable = ({
   children,
   columns,
+  headerPadding,
   onSearch,
   onSort,
   pagination,
@@ -56,12 +63,13 @@ const BaseTable = ({
         <TableRow>
           {columns.map(column => {
             if (typeof column === "string") {
-              return HeaderCell(column);
+              return HeaderCell(column, headerPadding);
             } else if (!column.sortId) {
               return HeaderCell(column.label);
             }
             return SortableHeaderCell(
               column,
+              headerPadding,
               onSort,
               sortColumn,
               sortDirection
@@ -100,6 +108,7 @@ BaseTable.propTypes = {
       })
     ])
   ).isRequired,
+  headerPadding: PropTypes.string,
   onSearch: PropTypes.func,
   onSort: PropTypes.func,
   pagination: PropTypes.shape({
@@ -115,6 +124,7 @@ BaseTable.propTypes = {
 
 BaseTable.defaultProps = {
   children: [],
+  headerPadding: "default",
   onSearch: null,
   onSort: null,
   pagination: null,
