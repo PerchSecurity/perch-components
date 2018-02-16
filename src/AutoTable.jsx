@@ -38,6 +38,7 @@ class AutoTable extends React.Component {
     const {
       columns,
       data: { items },
+      headerPadding,
       maxRows,
       paginatable,
       searchable,
@@ -58,6 +59,7 @@ class AutoTable extends React.Component {
         columns={
           sortable ? columns : columns.map(column => ({ label: column.label }))
         }
+        headerPadding={headerPadding}
         onSearch={this.onSearch}
         onSort={this.onSort}
         pagination={paginatable ? pagination : null}
@@ -92,6 +94,7 @@ AutoTable.propTypes = {
   }).isRequired,
   filter: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
   // filter.isCompliant: PropTypes.bool
+  headerPadding: PropTypes.string,
   initialOrdering: PropTypes.string,
   maxRows: PropTypes.number,
   paginatable: PropTypes.bool,
@@ -101,6 +104,7 @@ AutoTable.propTypes = {
 
 AutoTable.defaultProps = {
   filter: null,
+  headerPadding: null,
   maxRows: null,
   paginatable: false,
   searchable: false,
