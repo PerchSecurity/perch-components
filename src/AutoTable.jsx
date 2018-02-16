@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import withData from "withdata";
+import { isEqual } from "lodash";
 import { BaseTable as Table, LoadingRow } from "./";
 
 class AutoTable extends React.Component {
@@ -20,6 +21,13 @@ class AutoTable extends React.Component {
     }
 
     this.state = { sortColumn, sortDirection };
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { data: { items }, filter } = this.props;
+    if (!isEqual(newProps.filter, filter)) {
+      items.applyParams({ filter: newProps.filter });
+    } 
   }
 
   onSort = (column, direction) => {
