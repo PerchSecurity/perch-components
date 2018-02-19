@@ -85,10 +85,9 @@ const BaseTable = ({
           <TableRow>
             <TablePagination
               count={pagination.count}
-              rowsPerPage={pagination.rowsPerPage || 20}
+              rowsPerPage={pagination.rowsPerPage}
               page={pagination.page - 1}
               onChangePage={(e, page) => pagination.onChangePage(page + 1)}
-              rowsPerPageOptions={[pagination.rowsPerPage || 20]}
             />
           </TableRow>
         </TableFooter>
