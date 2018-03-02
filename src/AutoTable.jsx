@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import withData from "withdata";
-import { isEqual } from "lodash";
+import { withData } from "perch-data";
+import isEqual from "lodash.isequal";
 import { BaseTable as Table, LoadingRow } from "./";
 
 class AutoTable extends React.Component {
@@ -27,7 +27,7 @@ class AutoTable extends React.Component {
     const { data: { items }, filter } = this.props;
     if (!isEqual(newProps.filter, filter)) {
       items.applyParams({ filter: newProps.filter });
-    } 
+    }
   }
 
   onSort = (column, direction) => {

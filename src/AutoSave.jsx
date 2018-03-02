@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { debounce, isEqual } from "lodash";
+import isEqual from "lodash.isequal";
+import debounce from "lodash.debounce";
 
 const DEBOUNCE_DURATION = 1000;
 

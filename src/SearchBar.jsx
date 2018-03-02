@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Icon, Input } from "material-ui";
 import { withStyles } from "material-ui/styles";
 import { grey } from "material-ui/colors";
-import { debounce } from "lodash";
+import debounce from "lodash.debounce";
 
 const DEBOUNCE_DURATION = 300;
 
