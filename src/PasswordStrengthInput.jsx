@@ -49,7 +49,13 @@ const PasswordStrengthInput = ({
 };
 
 PasswordStrengthInput.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape({
+    0: PropTypes.string,
+    1: PropTypes.string,
+    2: PropTypes.string,
+    3: PropTypes.string,
+    4: PropTypes.string
+  }).isRequired,
   field: PropTypes.shape({
     name: PropTypes.string,
     value: PropTypes.any,
@@ -62,10 +68,6 @@ PasswordStrengthInput.propTypes = {
     // the rest of the formik bag too
   }).isRequired,
   label: PropTypes.string.isRequired
-};
-
-PasswordStrengthInput.defaultProps = {
-  value: null
 };
 
 export default withStyles(styles)(PasswordStrengthInput);

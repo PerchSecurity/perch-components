@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { debounce, isEqual } from "lodash";
+import isEqual from "lodash.isequal";
+import debounce from "lodash.debounce";
 
 const DEBOUNCE_DURATION = 1000;
 
@@ -26,7 +27,7 @@ class AutoSave extends React.Component {
 }
 
 AutoSave.propTypes = {
-  validationSchema: PropTypes.object.isRequired
+  validationSchema: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
 AutoSave.contextTypes = {

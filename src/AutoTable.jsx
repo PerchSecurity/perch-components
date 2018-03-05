@@ -1,14 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
-import withData from "withdata";
-import { isEqual } from "lodash";
+import { Data } from "perch-data";
+import { TableRow, TableCell, Typography } from "material-ui";
 import { BaseTable as Table, LoadingRow } from "./";
+
+const ErrorRow = ({ columnCount }) => (
+  <TableRow>
+    <TableCell colSpan={columnCount}>
+      <Typography type="caption" align="center">
+        An error occurred while fetching this data.
+      </Typography>
+    </TableCell>
+  </TableRow>
+);
+
+ErrorRow.propTypes = {
+  columnCount: PropTypes.number.isRequired
+};
 
 class AutoTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const { initialOrdering } = props;
+    const { initialOrdering = null } = props;
     let sortColumn = null;
     let sortDirection = null;
 
@@ -20,73 +34,97 @@ class AutoTable extends React.Component {
       sortDirection = firstCharIsDirection ? "desc" : "asc";
     }
 
-    this.state = { sortColumn, sortDirection };
+    this.state = {
+      ordering: initialOrdering,
+      page: 1,
+      search: null,
+      sortColumn,
+      sortDirection
+    };
   }
 
-  componentWillReceiveProps(newProps) {
-    const { data: { items }, filter } = this.props;
-    if (!isEqual(newProps.filter, filter)) {
-      items.applyParams({ filter: newProps.filter });
-    } 
-  }
+  getPaginationForData = data => {
+    if (data && data.total_count > 0) {
+      return {
+        count: data.total_count,
+        rowsPerPage: data.page_size,
+        page: data.page_number,
+        onChangePage: this.handleChangePage
+      };
+    }
+    return null;
+  };
 
-  onSort = (column, direction) => {
-    const { data: { items } } = this.props;
+  getTableBodyForResult = ({ data, error, loading }) => {
+    const { children, columns, maxRows } = this.props;
+
+    if (data) {
+      return children(data);
+    } else if (error) {
+      return <ErrorRow columnCount={columns.length} />;
+    } else if (loading) {
+      return [...Array(maxRows || 1)].map((_, index) => (
+        <LoadingRow key={index} rows={columns.length} /> // eslint-disable-line react/no-array-index-key
+      ));
+    }
+
+    return null;
+  };
+
+  handleSort = (column, direction) => {
     const ordering = `${direction === "desc" ? "-" : ""}${column}`;
-    this.setState({ sortColumn: column, sortDirection: direction });
-    items.applyParams({ ordering });
+    this.setState({ ordering, sortColumn: column, sortDirection: direction });
   };
 
-  onSearch = search => {
-    const { data: { items } } = this.props;
-    items.applyParams({ search });
-  };
+  handleSearch = search => this.setState({ search });
+
+  handleChangePage = page => this.setState({ page });
 
   render() {
     const {
+      action,
       columns,
-      data: { items },
+      filter,
       headerPadding,
       maxRows,
       paginatable,
       searchable,
       sortable
     } = this.props;
-    const { sortColumn, sortDirection } = this.state;
-    const pagination =
-      items.total_count > 0
-        ? {
-            count: items.total_count,
-            rowsPerPage: items.page_size,
-            page: items.page_number,
-            onChangePage: page => items.applyParams({ page })
-          }
-        : null;
+
+    const { ordering, page, search, sortColumn, sortDirection } = this.state;
+
+    const variables = { ...filter, size: maxRows, ordering, page, search };
+
     return (
-      <Table
-        columns={
-          sortable ? columns : columns.map(column => ({ label: column.label }))
-        }
-        headerPadding={headerPadding}
-        onSearch={this.onSearch}
-        onSort={this.onSort}
-        pagination={paginatable ? pagination : null}
-        searchable={searchable}
-        sortColumn={sortColumn}
-        sortDirection={sortDirection}
-      >
-        {items.loading
-          ? [...Array(maxRows || 1)].map((_, index) => (
-              <LoadingRow key={index} rows={columns.length} />
-            ))
-          : this.props.children(items)}
-      </Table>
+      <Data action={action} variables={variables}>
+        {result => (
+          <Table
+            columns={
+              sortable
+                ? columns
+                : columns.map(column => ({ label: column.label }))
+            }
+            headerPadding={headerPadding}
+            onSearch={this.handleSearch}
+            onSort={this.handleSort}
+            pagination={
+              paginatable ? this.getPaginationForData(result.data) : null
+            }
+            searchable={searchable}
+            sortColumn={sortColumn}
+            sortDirection={sortDirection}
+          >
+            {this.getTableBodyForResult(result)}
+          </Table>
+        )}
+      </Data>
     );
   }
 }
 
 AutoTable.propTypes = {
-  action: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  action: PropTypes.func.isRequired,
   children: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(
     PropTypes.oneOfType([
@@ -97,11 +135,7 @@ AutoTable.propTypes = {
       })
     ])
   ).isRequired,
-  data: PropTypes.shape({
-    items: PropTypes.object.isRequired
-  }).isRequired,
-  filter: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
-  // filter.isCompliant: PropTypes.bool
+  filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   headerPadding: PropTypes.string,
   initialOrdering: PropTypes.string,
   maxRows: PropTypes.number,
@@ -120,21 +154,4 @@ AutoTable.defaultProps = {
   sortable: false
 };
 
-export default withData({
-  items: ({
-    action,
-    filter,
-    initialOrdering,
-    maxRows,
-    ordering,
-    page,
-    search
-  }) =>
-    action({
-      ...filter,
-      size: maxRows,
-      ordering: ordering || initialOrdering,
-      page,
-      search
-    })
-})(AutoTable);
+export default AutoTable;

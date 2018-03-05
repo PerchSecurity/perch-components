@@ -16,7 +16,7 @@ const SaveButton = (
 
 SaveButton.propTypes = {
   label: PropTypes.string.isRequired,
-  validationSchema: PropTypes.object.isRequired
+  validationSchema: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
 SaveButton.contextTypes = {
