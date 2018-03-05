@@ -54,7 +54,6 @@ class AutoTable extends React.Component {
   }
 
   getTableBodyForResult = ({ data, error, loading }) => {
-
     const { children, columns, maxRows } = this.props;
 
     if (data) {
@@ -67,18 +66,17 @@ class AutoTable extends React.Component {
       ));
     }
 
-    handleSort = (column, direction) => {
-      const ordering = `${direction === "desc" ? "-" : ""}${column}`;
-      this.setState({ ordering, sortColumn: column, sortDirection: direction });
-    };
-  
-    handleSearch = search => this.setState({ search });
-  
-    handleChangePage = page => this.setState({ page });
-
     return null;
-
   };
+
+  handleSort = (column, direction) => {
+    const ordering = `${direction === "desc" ? "-" : ""}${column}`;
+    this.setState({ ordering, sortColumn: column, sortDirection: direction });
+  };
+
+  handleSearch = search => this.setState({ search });
+
+  handleChangePage = page => this.setState({ page });
 
   render() {
     const {
@@ -133,7 +131,7 @@ AutoTable.propTypes = {
       })
     ])
   ).isRequired,
-  filter: PropTypes.object,
+  filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   headerPadding: PropTypes.string,
   initialOrdering: PropTypes.string,
   maxRows: PropTypes.number,

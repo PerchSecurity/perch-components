@@ -27,7 +27,7 @@ class AutoSave extends React.Component {
 }
 
 AutoSave.propTypes = {
-  validationSchema: PropTypes.object.isRequired
+  validationSchema: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
 AutoSave.contextTypes = {

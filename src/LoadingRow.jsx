@@ -23,6 +23,7 @@ const styles = theme => ({
   }
 });
 
+/* eslint-disable react/no-array-index-key */
 const LoadingRow = ({ classes, rows }) => (
   <TableRow>
     {[...Array(rows)].map((_, index) => (
@@ -34,7 +35,9 @@ const LoadingRow = ({ classes, rows }) => (
 );
 
 LoadingRow.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape({
+    rect: PropTypes.string
+  }).isRequired,
   rows: PropTypes.number.isRequired
 };
 

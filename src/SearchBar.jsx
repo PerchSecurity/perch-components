@@ -48,7 +48,11 @@ class SearchBar extends React.Component {
 }
 
 SearchBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape({
+    icon: PropTypes.string,
+    input: PropTypes.string,
+    searchBar: PropTypes.string
+  }).isRequired,
   onChange: PropTypes.func.isRequired
 };
 
