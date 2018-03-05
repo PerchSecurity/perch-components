@@ -97,7 +97,10 @@ const BaseTable = ({
 );
 
 BaseTable.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element),
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]),
   columns: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,
