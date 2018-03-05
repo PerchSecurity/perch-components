@@ -18,16 +18,6 @@ ErrorRow.propTypes = {
   columnCount: PropTypes.number.isRequired
 };
 
-const getPaginationForData = data =>
-  data && data.total_count > 0
-    ? {
-        count: data.total_count,
-        rowsPerPage: data.page_size,
-        page: data.page_number,
-        onChangePage: this.handleChangePage
-      }
-    : null;
-
 class AutoTable extends React.Component {
   constructor(props) {
     super(props);
@@ -52,6 +42,18 @@ class AutoTable extends React.Component {
       sortDirection
     };
   }
+
+  getPaginationForData = data => {
+    if (data && data.total_count > 0) {
+      return {
+        count: data.total_count,
+        rowsPerPage: data.page_size,
+        page: data.page_number,
+        onChangePage: this.handleChangePage
+      };
+    }
+    return null;
+  };
 
   getTableBodyForResult = ({ data, error, loading }) => {
     const { children, columns, maxRows } = this.props;
@@ -106,7 +108,9 @@ class AutoTable extends React.Component {
             headerPadding={headerPadding}
             onSearch={this.handleSearch}
             onSort={this.handleSort}
-            pagination={paginatable ? getPaginationForData(result.data) : null}
+            pagination={
+              paginatable ? this.getPaginationForData(result.data) : null
+            }
             searchable={searchable}
             sortColumn={sortColumn}
             sortDirection={sortDirection}
