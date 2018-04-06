@@ -103,7 +103,7 @@ class AutoTable extends React.Component {
             columns={
               sortable
                 ? columns
-                : columns.map(column => ({ label: column.label }))
+                : columns.map(({ sortId, ...column }) => column)
             }
             headerPadding={headerPadding}
             onSearch={this.handleSearch}
@@ -146,7 +146,7 @@ AutoTable.propTypes = {
 
 AutoTable.defaultProps = {
   filter: null,
-  headerPadding: null,
+  headerPadding: "default",
   maxRows: null,
   paginatable: false,
   searchable: false,
