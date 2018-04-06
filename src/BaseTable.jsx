@@ -9,6 +9,8 @@ import Table, {
   TableSortLabel,
   TableRow
 } from "material-ui/Table";
+import { Hidden } from "material-ui";
+import { withStyles } from "material-ui/styles";
 import { SearchBar } from "./";
 
 const toggleDirection = direction => (direction === "asc" ? "desc" : "asc");
@@ -16,37 +18,75 @@ const toggleDirection = direction => (direction === "asc" ? "desc" : "asc");
 const toggleSort = (column, prevColumn, prevDirection) =>
   column === prevColumn ? toggleDirection(prevDirection) : "asc";
 
-const HeaderCell = (label, headerPadding) => (
-  <TableCell padding={headerPadding} key={label}>
-    {label && label.toString().toUpperCase()}
-  </TableCell>
+const styles = theme => ({
+  headerCell: {
+    whiteSpace: "nowrap",
+    textTransform: "uppercase"
+  }
+});
+
+const HeaderCell = ({ children, classes, hidden, padding }) => (
+  <Hidden {...hidden}>
+    <TableCell className={classes.headerCell} padding={padding}>
+      {children}
+    </TableCell>
+  </Hidden>
 );
 
-const SortableHeaderCell = (
-  column,
-  headerPadding,
+HeaderCell.propTypes = {
+  classes: PropTypes.object.isRequired,
+  children: PropTypes.string.isRequired,
+  hidden: PropTypes.object,
+  padding: PropTypes.string.isRequired
+};
+
+HeaderCell.defaultProps = {
+  hidden: null
+};
+
+const SortableHeaderCell = ({
+  children,
+  classes,
+  hidden,
+  padding,
   onSort,
   sortColumn,
-  sortDirection
-) => (
-  <TableCell key={column.label} padding={headerPadding}>
-    <TableSortLabel
-      active={sortColumn === column.sortId}
-      direction={sortDirection}
-      onClick={() =>
-        onSort(
-          column.sortId,
-          toggleSort(column.sortId, sortColumn, sortDirection)
-        )
-      }
-    >
-      {column.label && column.label.toString().toUpperCase()}
-    </TableSortLabel>
-  </TableCell>
+  sortDirection,
+  sortId
+}) => (
+  <Hidden {...hidden}>
+    <TableCell className={classes.headerCell} padding={padding}>
+      <TableSortLabel
+        active={sortColumn === sortId}
+        direction={sortDirection}
+        onClick={() =>
+          onSort(sortId, toggleSort(sortId, sortColumn, sortDirection))
+        }
+      >
+        {children}
+      </TableSortLabel>
+    </TableCell>
+  </Hidden>
 );
+
+SortableHeaderCell.propTypes = {
+  classes: PropTypes.object.isRequired,
+  children: PropTypes.string.isRequired,
+  hidden: PropTypes.object,
+  onSort: PropTypes.func.isRequired,
+  padding: PropTypes.string.isRequired,
+  sortColumn: PropTypes.string.isRequired,
+  sortDirection: PropTypes.string.isRequired,
+  sortId: PropTypes.string.isRequired
+};
+
+SortableHeaderCell.defaultProps = {
+  hidden: null
+};
 
 const BaseTable = ({
   children,
+  classes,
   columns,
   headerPadding,
   onSearch,
@@ -63,16 +103,40 @@ const BaseTable = ({
         <TableRow>
           {columns.map(column => {
             if (typeof column === "string") {
-              return HeaderCell(column, headerPadding);
+              return (
+                <HeaderCell
+                  classes={classes}
+                  key={column}
+                  padding={headerPadding}
+                >
+                  {column}
+                </HeaderCell>
+              );
             } else if (!column.sortId) {
-              return HeaderCell(column.label);
+              return (
+                <HeaderCell
+                  classes={classes}
+                  hidden={column.hidden}
+                  key={column.label}
+                  padding={headerPadding}
+                >
+                  {column.label}
+                </HeaderCell>
+              );
             }
-            return SortableHeaderCell(
-              column,
-              headerPadding,
-              onSort,
-              sortColumn,
-              sortDirection
+            return (
+              <SortableHeaderCell
+                classes={classes}
+                hidden={column.hidden}
+                key={column.label}
+                sortId={column.sortId}
+                padding={headerPadding}
+                onSort={onSort}
+                sortColumn={sortColumn}
+                sortDirection={sortDirection}
+              >
+                {column.label}
+              </SortableHeaderCell>
             );
           })}
         </TableRow>
@@ -97,10 +161,8 @@ const BaseTable = ({
 );
 
 BaseTable.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
-  ]),
+  children: PropTypes.node,
+  classes: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -135,4 +197,4 @@ BaseTable.defaultProps = {
   sortDirection: null
 };
 
-export default BaseTable;
+export default withStyles(styles)(BaseTable);
