@@ -45,7 +45,7 @@ class AutoTable extends React.Component {
   }
 
   getPaginationForData = data => {
-    const { rowsPerPageOptions } = this.props;
+    const { rowsPerPageOptions = [] } = this.props;
 
     if (data && data.total_count > 0) {
       return {
