@@ -37,6 +37,7 @@ class AutoTable extends React.Component {
     this.state = {
       ordering: initialOrdering,
       page: 1,
+      rowsPerPage: props.rowsPerPage,
       search: null,
       sortColumn,
       sortDirection
@@ -44,26 +45,30 @@ class AutoTable extends React.Component {
   }
 
   getPaginationForData = data => {
+    const { rowsPerPageOptions } = this.props;
+
     if (data && data.total_count > 0) {
       return {
         count: data.total_count,
-        rowsPerPage: data.page_size,
+        onChangePage: this.handleChangePage,
         page: data.page_number,
-        onChangePage: this.handleChangePage
+        rowsPerPage: data.page_size,
+        rowsPerPageOptions
       };
     }
     return null;
   };
 
   getTableBodyForResult = ({ data, error, loading }) => {
-    const { children, columns, maxRows } = this.props;
+    const { children, columns } = this.props;
+    const { rowsPerPage } = this.state;
 
     if (data) {
       return children(data);
     } else if (error) {
       return <ErrorRow columnCount={columns.length} />;
     } else if (loading) {
-      return [...Array(maxRows || 1)].map((_, index) => (
+      return [...Array(rowsPerPage || 1)].map((_, index) => (
         <LoadingRow key={index} rows={columns.length} /> // eslint-disable-line react/no-array-index-key
       ));
     }
@@ -80,21 +85,29 @@ class AutoTable extends React.Component {
 
   handleChangePage = page => this.setState({ page });
 
+  handleChangeRowsPerPage = rowsPerPage => this.setState({ rowsPerPage });
+
   render() {
     const {
       action,
       columns,
       filter,
       headerPadding,
-      maxRows,
       paginatable,
       searchable,
       sortable
     } = this.props;
 
-    const { ordering, page, search, sortColumn, sortDirection } = this.state;
+    const {
+      ordering,
+      page,
+      rowsPerPage,
+      search,
+      sortColumn,
+      sortDirection
+    } = this.state;
 
-    const variables = { ...filter, size: maxRows, ordering, page, search };
+    const variables = { ...filter, ordering, page, rowsPerPage, search };
 
     return (
       <Data action={action} variables={variables}>
@@ -138,8 +151,9 @@ AutoTable.propTypes = {
   filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   headerPadding: PropTypes.string,
   initialOrdering: PropTypes.string,
-  maxRows: PropTypes.number,
   paginatable: PropTypes.bool,
+  rowsPerPage: PropTypes.number,
+  rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
   searchable: PropTypes.bool,
   sortable: PropTypes.bool
 };
@@ -147,8 +161,9 @@ AutoTable.propTypes = {
 AutoTable.defaultProps = {
   filter: null,
   headerPadding: "default",
-  maxRows: null,
   paginatable: false,
+  rowsPerPage: null,
+  rowsPerPageOptions: [10, 25, 50, 100],
   searchable: false,
   initialOrdering: null,
   sortable: false
