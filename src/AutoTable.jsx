@@ -51,6 +51,7 @@ class AutoTable extends React.Component {
       return {
         count: data.total_count,
         onChangePage: this.handleChangePage,
+        onChangeRowsPerPage: this.handleChangeRowsPerPage,
         page: data.page_number,
         rowsPerPage: data.page_size,
         rowsPerPageOptions
