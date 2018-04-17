@@ -18,7 +18,7 @@ const toggleDirection = direction => (direction === "asc" ? "desc" : "asc");
 const toggleSort = (column, prevColumn, prevDirection) =>
   column === prevColumn ? toggleDirection(prevDirection) : "asc";
 
-const styles = theme => ({
+const styles = () => ({
   headerCell: {
     whiteSpace: "nowrap",
     textTransform: "uppercase"
@@ -149,9 +149,15 @@ const BaseTable = ({
           <TableRow>
             <TablePagination
               count={pagination.count}
-              rowsPerPage={pagination.rowsPerPage}
               page={pagination.page - 1}
               onChangePage={(e, page) => pagination.onChangePage(page + 1)}
+              onChangeRowsPerPage={({ target: { value: rpp } }) =>
+                pagination.onChangeRowsPerPage
+                  ? pagination.onChangeRowsPerPage(rpp)
+                  : null
+              }
+              rowsPerPage={pagination.rowsPerPage}
+              rowsPerPageOptions={pagination.rowsPerPageOptions}
             />
           </TableRow>
         </TableFooter>
@@ -178,8 +184,10 @@ BaseTable.propTypes = {
   pagination: PropTypes.shape({
     count: PropTypes.number, // Total number of rows
     onChangePage: PropTypes.func,
+    onChangeRowsPerPage: PropTypes.func,
     page: PropTypes.number, // Current page number
-    rowsPerPage: PropTypes.number
+    rowsPerPage: PropTypes.number,
+    rowsPerPageOptions: PropTypes.array
   }),
   searchable: PropTypes.bool,
   sortColumn: PropTypes.string,
