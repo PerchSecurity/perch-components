@@ -1,4 +1,9 @@
 # Changelog
+## 0.4.0
+
+- Upgraded to React 16
+- Addeed configurable rowsPerPage to AutoTable/Basetable
+- Removed `maxRows` and `size` from AutoTable
 
 ## 0.3.0
 
