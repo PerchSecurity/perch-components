@@ -110,7 +110,7 @@ class AutoTable extends React.Component {
       action,
       columns,
       headerPadding,
-      pagable,
+      pageable,
       searchable,
       sortable
     } = this.props;
@@ -139,7 +139,9 @@ class AutoTable extends React.Component {
             headerPadding={headerPadding}
             onSearch={this.handleSearch}
             onSort={this.handleSort}
-            pagination={pagable ? this.getPaginationForData(result.data) : null}
+            pagination={
+              pageable ? this.getPaginationForData(result.data) : null
+            }
             searchable={searchable}
             sortColumn={sortColumn}
             sortDirection={sortDirection}
@@ -167,7 +169,7 @@ AutoTable.propTypes = {
   filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   headerPadding: PropTypes.string,
   initialOrdering: PropTypes.string,
-  pagable: PropTypes.bool,
+  pageable: PropTypes.bool,
   rowsPerPage: PropTypes.number,
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
   searchable: PropTypes.bool,
@@ -177,7 +179,7 @@ AutoTable.propTypes = {
 AutoTable.defaultProps = {
   filter: null,
   headerPadding: "default",
-  pagable: false,
+  pageable: false,
   rowsPerPage: null,
   rowsPerPageOptions: [10, 25, 50, 100],
   searchable: false,
