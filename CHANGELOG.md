@@ -1,9 +1,16 @@
 # Changelog
+
+## 0.5.0
+
+- [Breaking] Rename `paginatable` to `pageable`
+- Add logic to clear page and sort when AutoTable filters/search change
+- Add polyfill for React 16.3 lifecycle methods
+
 ## 0.4.0
 
+- [Breaking] Removed `maxRows` and `size` from AutoTable
 - Upgraded to React 16
 - Addeed configurable rowsPerPage to AutoTable/Basetable
-- Removed `maxRows` and `size` from AutoTable
 
 ## 0.3.0
 
