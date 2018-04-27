@@ -9,7 +9,7 @@ import { BaseTable as Table, LoadingRow } from "./";
 const ErrorRow = ({ columnCount }) => (
   <TableRow>
     <TableCell colSpan={columnCount}>
-      <Typography type="caption" align="center">
+      <Typography variant="caption" align="center">
         An error occurred while fetching this data.
       </Typography>
     </TableCell>
