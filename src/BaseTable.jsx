@@ -97,7 +97,7 @@ const BaseTable = ({
   sortDirection
 }) => (
   <div>
-    {searchable && <SearchBar onChange={onSearch} />}
+    {searchable && <SearchBar onChange={onSearch} debounce={1000} />}
     <Table>
       <TableHead>
         <TableRow>
