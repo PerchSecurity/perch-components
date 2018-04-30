@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.2
+
+- Update perch-data to v0.15.1
+- Pass `refetch` as optional second argument to AutoTable
+
 ## 0.5.1
 
 - Force loading state to take priority over stale data

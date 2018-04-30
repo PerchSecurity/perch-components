@@ -78,7 +78,7 @@ class AutoTable extends React.Component {
     return null;
   };
 
-  getTableBodyForResult = ({ data, error, loading }) => {
+  getTableBodyForResult = ({ data, error, loading, refetch }) => {
     const { children, columns } = this.props;
     const { rowsPerPage } = this.state;
 
@@ -89,7 +89,7 @@ class AutoTable extends React.Component {
         <LoadingRow key={index} rows={columns.length} /> // eslint-disable-line react/no-array-index-key
       ));
     } else if (data) {
-      return children(data);
+      return children(data, refetch);
     }
 
     return null;
