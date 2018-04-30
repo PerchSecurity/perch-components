@@ -63,14 +63,15 @@ class AutoTable extends React.Component {
 
   getPaginationForData = data => {
     const { rowsPerPageOptions = [] } = this.props;
+    const { page, rowsPerPage } = this.state;
 
     if (data && data.total_count > 0) {
       return {
         count: data.total_count,
         onChangePage: this.handleChangePage,
         onChangeRowsPerPage: this.handleChangeRowsPerPage,
-        page: data.page_number,
-        rowsPerPage: data.page_size,
+        page,
+        rowsPerPage,
         rowsPerPageOptions
       };
     }
@@ -81,14 +82,14 @@ class AutoTable extends React.Component {
     const { children, columns } = this.props;
     const { rowsPerPage } = this.state;
 
-    if (data) {
-      return children(data);
-    } else if (error) {
+    if (error) {
       return <ErrorRow columnCount={columns.length} />;
     } else if (loading) {
       return [...Array(rowsPerPage || 1)].map((_, index) => (
         <LoadingRow key={index} rows={columns.length} /> // eslint-disable-line react/no-array-index-key
       ));
+    } else if (data) {
+      return children(data);
     }
 
     return null;
