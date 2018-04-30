@@ -27,7 +27,7 @@ const styles = {
 };
 
 class SearchBar extends React.Component {
-  debouncedOnChange = debounce(this.props.onChange, DEBOUNCE_DURATION);
+  debouncedOnChange = debounce(this.props.onChange, this.props.debounce);
 
   render() {
     const { classes } = this.props;
@@ -53,7 +53,12 @@ SearchBar.propTypes = {
     input: PropTypes.string,
     searchBar: PropTypes.string
   }).isRequired,
+  debounce: PropTypes.number,
   onChange: PropTypes.func.isRequired
+};
+
+SearchBar.defaultProps = {
+  debounce: DEBOUNCE_DURATION
 };
 
 export default withStyles(styles)(SearchBar);
