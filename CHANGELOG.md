@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.1
+
+- Force loading state to take priority over stale data
+- Optimistically update the UI when changing table props
+- Set search debounce to 1s (previously 300ms)
+
 ## 0.5.0
 
 - [Breaking] Rename `paginatable` to `pageable`
