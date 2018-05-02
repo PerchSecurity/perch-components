@@ -8,7 +8,7 @@ const SaveButton = (
 ) => {
   const disabled = isSubmitting || !validationSchema.isValidSync(values);
   return (
-    <Button raised color="primary" type="submit" disabled={disabled} {...props}>
+    <Button variant="raised" color="primary" type="submit" disabled={disabled} {...props}>
       {label}
     </Button>
   );
