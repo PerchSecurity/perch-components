@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+- Updates for MUI beta v30-44
+
 ## 0.5.2
 
 - Update perch-data to v0.15.1
