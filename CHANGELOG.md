@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.0
+
+- Replace AutoTable's second arg (`refetch`) with an arg "bag" like Formik
+- Update perch-data to v0.16.0
+
 ## 0.6.0
 
 - Updates for MUI beta v30-44
