@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.1
+
+- Update perch-data to v0.17.0
+
 ## 0.7.0
 
 - Replace AutoTable's second arg (`refetch`) with an arg "bag" like Formik
