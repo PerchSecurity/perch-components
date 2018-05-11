@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { TextField } from "material-ui";
+import { MenuItem, TextField } from "material-ui";
 
 const MaterialInputSelect = ({
   field,
-  form: { touched, errors },
+  form: { errors, handleBlur, touched },
   label,
   options,
   ...props
@@ -12,17 +12,22 @@ const MaterialInputSelect = ({
   <TextField
     {...props}
     {...field}
-    value={field.value || ""}
+    value={field.value !== undefined ? field.value : ""}
     error={Boolean(touched[field.name] && errors[field.name])}
     label={(touched[field.name] && errors[field.name]) || label}
     select
-    SelectProps={{ native: true }}
+    SelectProps={{
+      onBlur: event => {
+        event.target.name = field.name; // eslint-disable-line no-param-reassign
+        handleBlur(event);
+      }
+    }}
   >
-    <option value="">Select</option>
+    {field.value === "" && <MenuItem value="">Select</MenuItem>}
     {options.map(option => (
-      <option key={option.value} value={option.value}>
+      <MenuItem key={option.value} value={option.value}>
         {option.label}
-      </option>
+      </MenuItem>
     ))}
   </TextField>
 );
@@ -40,6 +45,7 @@ MaterialInputSelect.propTypes = {
     // the rest of the formik bag too
   }).isRequired,
   label: PropTypes.string.isRequired,
+  // native: PropTypes.bool,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.any,
@@ -49,6 +55,7 @@ MaterialInputSelect.propTypes = {
 };
 
 MaterialInputSelect.defaultProps = {
+  // native: false,
   options: []
 };
 

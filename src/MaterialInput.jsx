@@ -11,7 +11,7 @@ const MaterialInput = ({
   <TextField
     {...props}
     {...field}
-    value={field.value || ""}
+    value={field.value !== undefined ? field.value : ""}
     error={Boolean(touched[field.name] && errors[field.name])}
     label={(touched[field.name] && errors[field.name]) || label}
   />
