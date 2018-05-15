@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Button } from "material-ui";
 
 const SaveButton = (
-  { label, validationSchema, ...props },
-  { formik: { values, isSubmitting } }
+  { forceSubmit, label, validationSchema, ...props },
+  { formik: { values, handleSubmit, isSubmitting } }
 ) => {
   const disabled = isSubmitting || !validationSchema.isValidSync(values);
   return (
@@ -12,6 +12,7 @@ const SaveButton = (
       variant="raised"
       color="primary"
       type="submit"
+      onClick={forceSubmit ? handleSubmit : undefined}
       disabled={disabled}
       {...props}
     >
@@ -21,8 +22,13 @@ const SaveButton = (
 };
 
 SaveButton.propTypes = {
+  forceSubmit: PropTypes.bool,
   label: PropTypes.string.isRequired,
   validationSchema: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
+};
+
+SaveButton.defaultProps = {
+  forceSubmit: false
 };
 
 SaveButton.contextTypes = {
