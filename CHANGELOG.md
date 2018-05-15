@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.0
+
+- Add optional forceSubmit prop to SaveButton
+- Add support for multiSelect and non-native selects to MaterialInputSelect
+- Add checkbox option for MaterialInputBoolean
+- Fix falsy values in form fields
+
 ## 0.7.2
 
 - Update perch-data to v0.17.1

@@ -1,20 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FormControlLabel, Switch } from "material-ui";
+import { Checkbox, FormControlLabel, Switch } from "material-ui";
 
-const MaterialInput = ({
+const MaterialInputBoolean = ({
+  checkbox,
   field: { value, ...field },
   form,
   label,
   ...props
-}) => (
-  <FormControlLabel
-    control={<Switch {...field} {...props} checked={value || false} />}
-    label={label}
-  />
-);
+}) => {
+  const Component = checkbox ? Checkbox : Switch;
+  return (
+    <FormControlLabel
+      control={<Component {...field} {...props} checked={value || false} />}
+      label={label}
+    />
+  );
+};
 
-MaterialInput.propTypes = {
+MaterialInputBoolean.propTypes = {
+  checkbox: PropTypes.bool,
   field: PropTypes.shape({
     name: PropTypes.string,
     value: PropTypes.any,
@@ -27,4 +32,8 @@ MaterialInput.propTypes = {
   label: PropTypes.string.isRequired
 };
 
-export default MaterialInput;
+MaterialInputBoolean.defaultProps = {
+  checkbox: false
+};
+
+export default MaterialInputBoolean;
