@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+
+- Update perch-data to v0.19.0
+
 ## 0.8.0
 
 - Add optional forceSubmit prop to SaveButton
