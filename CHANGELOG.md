@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.2
+
+- Update perch-data to v0.19.1 (prevent out-of-order renders with successive refetches)
+
 ## 0.8.1
 
 - Update perch-data to v0.19.0
