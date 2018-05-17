@@ -11,7 +11,8 @@ import Table, {
 } from "material-ui/Table";
 import { Hidden } from "material-ui";
 import { withStyles } from "material-ui/styles";
-import { SearchBar } from "./";
+import { SearchBar, ActionBar } from "./";
+import { ActionButtonPropTypes } from './ActionButton';
 
 const toggleDirection = direction => (direction === "asc" ? "desc" : "asc");
 
@@ -22,6 +23,17 @@ const styles = () => ({
   headerCell: {
     whiteSpace: "nowrap",
     textTransform: "uppercase"
+  },
+  topBar: {
+    display: "flex",
+    flexDirection: "row"
+
+  },
+  searchBar: {
+    flex: 1,
+  },
+  actionBar: {
+    flex: 0,
   }
 });
 
@@ -93,11 +105,17 @@ const BaseTable = ({
   onSort,
   pagination,
   searchable,
+  actions,
   sortColumn,
   sortDirection
 }) => (
   <div>
-    {searchable && <SearchBar onChange={onSearch} debounce={1000} />}
+    {(searchable || actions) && (
+      <div className={classes.topBar}>
+        {searchable && <SearchBar onChange={onSearch} debounce={1000} classes={{ searchBar: classes.searchBar }} />}
+        {actions && <ActionBar actions={actions} classes={{ actionBar: classes.actionBar }} />}
+      </div>
+    )}
     <Table>
       <TableHead>
         <TableRow>
@@ -117,7 +135,7 @@ const BaseTable = ({
                 <HeaderCell
                   classes={classes}
                   hidden={column.hidden}
-                  key={column.label}
+                  key={column.key || column.label}
                   padding={headerPadding}
                 >
                   {column.label}
@@ -128,7 +146,7 @@ const BaseTable = ({
               <SortableHeaderCell
                 classes={classes}
                 hidden={column.hidden}
-                key={column.label}
+                key={column.key || column.label}
                 sortId={column.sortId}
                 padding={headerPadding}
                 onSort={onSort}
@@ -173,13 +191,19 @@ BaseTable.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.shape({
-        label: PropTypes.string,
+        key: PropTypes.string,
+        label: PropTypes.node,
         sortId: PropTypes.string
       })
     ])
   ).isRequired,
   headerPadding: PropTypes.string,
   onSearch: PropTypes.func,
+  //XXX////////////////////////////////////////////////////////////////////////////////////////////////
+  //XXX////////////////////////////////////////////////////////////////////////////////////////////////
+  // XXX: conditional proptypes?
+  //XXX////////////////////////////////////////////////////////////////////////////////////////////////
+  //XXX////////////////////////////////////////////////////////////////////////////////////////////////
   onSort: PropTypes.func,
   pagination: PropTypes.shape({
     count: PropTypes.number, // Total number of rows
@@ -190,6 +214,9 @@ BaseTable.propTypes = {
     rowsPerPageOptions: PropTypes.array
   }),
   searchable: PropTypes.bool,
+  actions: PropTypes.arrayOf(
+    PropTypes.shape(ActionButtonPropTypes)
+  ),
   sortColumn: PropTypes.string,
   sortDirection: PropTypes.string
 };
@@ -202,7 +229,8 @@ BaseTable.defaultProps = {
   pagination: null,
   searchable: false,
   sortColumn: null,
-  sortDirection: null
+  sortDirection: null,
+  actions: null
 };
 
 export default withStyles(styles)(BaseTable);
