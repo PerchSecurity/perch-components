@@ -12,7 +12,7 @@ import Table, {
 import { Hidden } from "material-ui";
 import { withStyles } from "material-ui/styles";
 import { SearchBar, ActionBar } from "./";
-import { ActionButtonPropTypes } from './ActionButton';
+import { ActionButtonPropTypes } from "./ActionButton";
 
 const toggleDirection = direction => (direction === "asc" ? "desc" : "asc");
 
@@ -27,13 +27,12 @@ const styles = () => ({
   topBar: {
     display: "flex",
     flexDirection: "row"
-
   },
   searchBar: {
-    flex: 1,
+    flex: 1
   },
   actionBar: {
-    flex: 0,
+    flex: 0
   }
 });
 
@@ -112,8 +111,19 @@ const BaseTable = ({
   <div>
     {(searchable || actions) && (
       <div className={classes.topBar}>
-        {searchable && <SearchBar onChange={onSearch} debounce={1000} classes={{ searchBar: classes.searchBar }} />}
-        {actions && <ActionBar actions={actions} classes={{ actionBar: classes.actionBar }} />}
+        {searchable && (
+          <SearchBar
+            onChange={onSearch}
+            debounce={1000}
+            classes={{ searchBar: classes.searchBar }}
+          />
+        )}
+        {actions && (
+          <ActionBar
+            actions={actions}
+            classes={{ actionBar: classes.actionBar }}
+          />
+        )}
       </div>
     )}
     <Table>
@@ -199,11 +209,6 @@ BaseTable.propTypes = {
   ).isRequired,
   headerPadding: PropTypes.string,
   onSearch: PropTypes.func,
-  //XXX////////////////////////////////////////////////////////////////////////////////////////////////
-  //XXX////////////////////////////////////////////////////////////////////////////////////////////////
-  // XXX: conditional proptypes?
-  //XXX////////////////////////////////////////////////////////////////////////////////////////////////
-  //XXX////////////////////////////////////////////////////////////////////////////////////////////////
   onSort: PropTypes.func,
   pagination: PropTypes.shape({
     count: PropTypes.number, // Total number of rows
@@ -214,9 +219,7 @@ BaseTable.propTypes = {
     rowsPerPageOptions: PropTypes.array
   }),
   searchable: PropTypes.bool,
-  actions: PropTypes.arrayOf(
-    PropTypes.shape(ActionButtonPropTypes)
-  ),
+  actions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   sortColumn: PropTypes.string,
   sortDirection: PropTypes.string
 };

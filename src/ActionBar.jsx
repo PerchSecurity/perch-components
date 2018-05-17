@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import { grey } from "material-ui/colors";
-import { ActionButton } from './index';
-import { ActionButtonPropTypes } from './ActionButton';
+import { ActionButton } from "./index";
+import { ActionButtonPropTypes } from "./ActionButton";
 
 const styles = {
   actionBar: {
@@ -15,7 +15,7 @@ const styles = {
     alignContent: "space-evenly",
     justifyItems: "space-between",
     flexDirection: "row",
-    flexWrap: 'nowrap'
+    flexWrap: "nowrap"
   },
   icon: {
     marginLeft: 8,
@@ -31,13 +31,16 @@ const styles = {
 };
 
 const JUSTIFICATIONS = {
-  left: 'flex-start',
-  center: 'center',
-  right: 'flex-end',
+  left: "flex-start",
+  center: "center",
+  right: "flex-end"
 };
 
 const ActionBar = ({ classes, actions, position }) => (
-  <div className={classes.actionBar} style={{ justifyContent: JUSTIFICATIONS[position] }}>
+  <div
+    className={classes.actionBar}
+    style={{ justifyContent: JUSTIFICATIONS[position] }}
+  >
     {actions.map(action => <ActionButton {...action} />)}
   </div>
 );
@@ -45,13 +48,11 @@ const ActionBar = ({ classes, actions, position }) => (
 ActionBar.propTypes = {
   classes: PropTypes.object.isRequired,
   position: PropTypes.oneOf(Object.keys(JUSTIFICATIONS)),
-  actions: PropTypes.arrayOf(
-    PropTypes.shape(ActionButtonPropTypes)
-  ).isRequired,
+  actions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)).isRequired
 };
 
 ActionBar.defaultProps = {
-  position: 'right'
+  position: "right"
 };
 
 export default withStyles(styles)(ActionBar);

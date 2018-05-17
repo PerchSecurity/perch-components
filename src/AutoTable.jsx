@@ -5,7 +5,7 @@ import { Data } from "perch-data";
 import { TableRow, TableCell, Typography, Checkbox } from "material-ui";
 import isEqual from "lodash.isequal";
 import { BaseTable as Table, LoadingRow } from "./";
-import { ActionButtonPropTypes } from './ActionButton';
+import { ActionButtonPropTypes } from "./ActionButton";
 
 const ErrorRow = ({ columnCount }) => (
   <TableRow>
@@ -67,7 +67,10 @@ class AutoTable extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     const { allItems, ...relevantState } = this.state;
     const { allItems: nextAllItems, ...nextRelevantState } = nextState;
-    return !isEqual(this.props, nextProps) || !isEqual(relevantState, nextRelevantState);
+    return (
+      !isEqual(this.props, nextProps) ||
+      !isEqual(relevantState, nextRelevantState)
+    );
   }
 
   getPaginationForData = data => {
@@ -87,7 +90,11 @@ class AutoTable extends React.Component {
     return null;
   };
 
-  getTableBodyForResult = ({ data, error, loading, refetch }, variables, multiselectable) => {
+  getTableBodyForResult = (
+    { data, error, loading, refetch },
+    variables,
+    multiselectable
+  ) => {
     const { renderItem, columns } = this.props;
     const { rowsPerPage, selectedItems } = this.state;
     const numColumns = multiselectable ? columns.length + 1 : columns;
@@ -101,21 +108,23 @@ class AutoTable extends React.Component {
     } else if (data) {
       this.setState({ allItems: new Set(data.results) });
 
-      return data.results.map((item) => {
+      return data.results.map(item => {
         const cells = renderItem(item, { data, refetch, variables });
         return (
           <TableRow>
             {multiselectable && (
               <TableCell>
                 <Checkbox
-                  onChange={(event, checked) => this.handleSelectItem(item, checked)}
+                  onChange={(event, checked) =>
+                    this.handleSelectItem(item, checked)
+                  }
                   checked={selectedItems.has(item)}
                 />
               </TableCell>
             )}
             {cells}
           </TableRow>
-        )
+        );
       });
     }
 
@@ -126,20 +135,25 @@ class AutoTable extends React.Component {
     this.setState({
       selectedItems: new Set(),
       allItems: new Set(),
-      ...variables,
+      ...variables
     });
   }
 
   handleSort = (column, direction) => {
     const ordering = `${direction === "desc" ? "-" : ""}${column}`;
-    this.changeTableVariables({ ordering, sortColumn: column, sortDirection: direction });
+    this.changeTableVariables({
+      ordering,
+      sortColumn: column,
+      sortDirection: direction
+    });
   };
 
   handleSearch = search => this.changeTableVariables({ search, page: 1 }); // Reset page on search
 
   handleChangePage = page => this.changeTableVariables({ page });
 
-  handleChangeRowsPerPage = rowsPerPage => this.changeTableVariables({ rowsPerPage });
+  handleChangeRowsPerPage = rowsPerPage =>
+    this.changeTableVariables({ rowsPerPage });
 
   handleSelectAll = () => {
     const { selectedItems, allItems } = this.state;
@@ -148,7 +162,7 @@ class AutoTable extends React.Component {
     if (allItems.size > selectedItems.size) {
       this.setState({ selectedItems: new Set(allItems) });
     } else {
-      this.setState({ selectedItems: new Set() })
+      this.setState({ selectedItems: new Set() });
     }
   };
 
@@ -190,17 +204,18 @@ class AutoTable extends React.Component {
     } = this.state;
 
     // Ensure all column descriptors are objects, for easy handling
-    let tableColumns = columns.map(column =>
-      typeof column === 'string'
-        ? { label: column }
-        : column
+    let tableColumns = columns.map(
+      column => (typeof column === "string" ? { label: column } : column)
     );
 
     if (multiselectable) {
-      const isAllSelected = selectedItems.size > 0 && selectedItems.size === allItems.size;
+      const isAllSelected =
+        selectedItems.size > 0 && selectedItems.size === allItems.size;
       const multiselectColumn = {
-        key: 'select all',
-        label: <Checkbox onChange={this.handleSelectAll} checked={isAllSelected} />
+        key: "select all",
+        label: (
+          <Checkbox onChange={this.handleSelectAll} checked={isAllSelected} />
+        )
       };
       tableColumns = [multiselectColumn, ...tableColumns];
     }
@@ -209,12 +224,10 @@ class AutoTable extends React.Component {
     const showSearchBar = searchable && selectedItems.size === 0;
 
     const showTableActions = multiselectable && selectedItems.size > 0;
-    const tableActions = multiselectActions.map(
-      ({ onClick, ...props }) => ({
-        ...props,
-        onClick: () => { onClick([...selectedItems]) }
-      })
-    );
+    const tableActions = multiselectActions.map(({ onClick, ...props }) => ({
+      ...props,
+      onClick: () => onClick([...selectedItems])
+    }));
 
     return (
       <Data action={action} variables={variables}>
@@ -265,9 +278,7 @@ AutoTable.propTypes = {
   searchable: PropTypes.bool,
   sortable: PropTypes.bool,
   multiselectable: PropTypes.bool,
-  multiselectActions: PropTypes.arrayOf(
-    PropTypes.shape(ActionButtonPropTypes)
-  )
+  multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes))
 };
 
 AutoTable.defaultProps = {
