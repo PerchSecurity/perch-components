@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1
+
+- Fix null vs undefined sort props
+
 ## 0.9.0
 
 - BREAKING: Change the child function signature for AutoTable

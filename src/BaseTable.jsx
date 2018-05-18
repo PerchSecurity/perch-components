@@ -87,13 +87,15 @@ SortableHeaderCell.propTypes = {
   hidden: PropTypes.object,
   onSort: PropTypes.func.isRequired,
   padding: PropTypes.string.isRequired,
-  sortColumn: PropTypes.string.isRequired,
-  sortDirection: PropTypes.string.isRequired,
+  sortColumn: PropTypes.string,
+  sortDirection: PropTypes.string,
   sortId: PropTypes.string.isRequired
 };
 
 SortableHeaderCell.defaultProps = {
-  hidden: null
+  hidden: null,
+  sortColumn: undefined,
+  sortDirection: undefined
 };
 
 const BaseTable = ({
@@ -239,8 +241,8 @@ BaseTable.defaultProps = {
   pagination: null,
   searchable: false,
   selectedCount: 0,
-  sortColumn: null,
-  sortDirection: null
+  sortColumn: undefined,
+  sortDirection: undefined
 };
 
 export default withStyles(styles)(BaseTable);

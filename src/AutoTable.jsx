@@ -22,8 +22,8 @@ ErrorRow.propTypes = {
 };
 
 const getSortFromOrdering = ordering => {
-  let sortColumn = null;
-  let sortDirection = null;
+  let sortColumn;
+  let sortDirection;
 
   if (ordering) {
     const isFirstCharDirection = ordering.slice(0, 1) === "-";
