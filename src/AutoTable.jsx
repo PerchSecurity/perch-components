@@ -96,7 +96,7 @@ class AutoTable extends React.Component {
   ) => {
     const { children, multiselectable } = this.props;
     const { rowsPerPage, selectedItems } = this.state;
-    const numColumns = multiselectable ? columns.length + 1 : columns;
+    const numColumns = multiselectable ? columns.length + 1 : columns.length;
 
     if (error) {
       return <ErrorRow columnCount={numColumns} />;
