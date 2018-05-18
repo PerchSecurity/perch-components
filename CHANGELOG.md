@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.0
+
+- BREAKING: Change the child function signature for AutoTable
+- Add multiselect support to AutoTable and BaseTable
+- Change MUI peer dependency requirement
+- Add clear button to SearchBar
+- Add ActionButton and ActionBar
+
 ## 0.8.2
 
 - Update perch-data to v0.19.1 (prevent out-of-order renders with successive refetches)

@@ -11,7 +11,8 @@ import Table, {
 } from "material-ui/Table";
 import { Hidden } from "material-ui";
 import { withStyles } from "material-ui/styles";
-import { SearchBar } from "./";
+import { SearchBar, ActionBar } from "./";
+import { ActionButtonPropTypes } from "./ActionButton";
 
 const toggleDirection = direction => (direction === "asc" ? "desc" : "asc");
 
@@ -22,6 +23,16 @@ const styles = () => ({
   headerCell: {
     whiteSpace: "nowrap",
     textTransform: "uppercase"
+  },
+  topBar: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  searchBar: {
+    flex: 1
+  },
+  actionBar: {
+    flex: 1
   }
 });
 
@@ -35,7 +46,8 @@ const HeaderCell = ({ children, classes, hidden, padding }) => (
 
 HeaderCell.propTypes = {
   classes: PropTypes.object.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    .isRequired,
   hidden: PropTypes.object,
   padding: PropTypes.string.isRequired
 };
@@ -85,6 +97,7 @@ SortableHeaderCell.defaultProps = {
 };
 
 const BaseTable = ({
+  actions,
   children,
   classes,
   columns,
@@ -93,11 +106,31 @@ const BaseTable = ({
   onSort,
   pagination,
   searchable,
+  selectedCount,
   sortColumn,
   sortDirection
 }) => (
   <div>
-    {searchable && <SearchBar onChange={onSearch} debounce={1000} />}
+    {(searchable || actions) && (
+      <div className={classes.topBar}>
+        {searchable && (
+          <SearchBar
+            classes={{ searchBar: classes.searchBar }}
+            debounce={1000}
+            isHidden={Boolean(selectedCount)}
+            onChange={onSearch}
+          />
+        )}
+        {actions &&
+          selectedCount > 0 && (
+            <ActionBar
+              actions={actions}
+              classes={{ actionBar: classes.actionBar }}
+              items={selectedCount}
+            />
+          )}
+      </div>
+    )}
     <Table>
       <TableHead>
         <TableRow>
@@ -117,8 +150,8 @@ const BaseTable = ({
                 <HeaderCell
                   classes={classes}
                   hidden={column.hidden}
-                  key={column.label}
-                  padding={headerPadding}
+                  key={column.key || column.label}
+                  padding={column.key ? "checkbox" : headerPadding}
                 >
                   {column.label}
                 </HeaderCell>
@@ -128,7 +161,7 @@ const BaseTable = ({
               <SortableHeaderCell
                 classes={classes}
                 hidden={column.hidden}
-                key={column.label}
+                key={column.key || column.label}
                 sortId={column.sortId}
                 padding={headerPadding}
                 onSort={onSort}
@@ -167,13 +200,15 @@ const BaseTable = ({
 );
 
 BaseTable.propTypes = {
+  actions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.shape({
-        label: PropTypes.string,
+        key: PropTypes.string,
+        label: PropTypes.node,
         sortId: PropTypes.string
       })
     ])
@@ -190,17 +225,20 @@ BaseTable.propTypes = {
     rowsPerPageOptions: PropTypes.array
   }),
   searchable: PropTypes.bool,
+  selectedCount: PropTypes.number,
   sortColumn: PropTypes.string,
   sortDirection: PropTypes.string
 };
 
 BaseTable.defaultProps = {
+  actions: null,
   children: [],
   headerPadding: "default",
   onSearch: null,
   onSort: null,
   pagination: null,
   searchable: false,
+  selectedCount: 0,
   sortColumn: null,
   sortDirection: null
 };

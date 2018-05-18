@@ -1,6 +1,6 @@
 {
   "name": "perch-components",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "React components for cross-application use at Perch Security",
   "main": "lib/index.js",
   "scripts": {
@@ -23,9 +23,10 @@
   "homepage": "https://github.com/usePF/perch-components#readme",
   "peerDependencies": {
     "formik": ">=0.11.10",
-    "material-ui": ">=1.0.0-beta.40",
+    "material-ui": ">=1.0.0-beta.34",
     "prop-types": ">=15.0.0",
-    "react": ">=15.0.0"
+    "react": ">=15.0.0",
+    "react-router": "^3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -42,10 +43,11 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "formik": "^0.11.11",
-    "material-ui": "^1.0.0-beta.31",
+    "material-ui": "^1.0.0-beta.38",
     "prettier": "^1.12.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-router": "^3.0.0",
     "react-test-renderer": "^16.0.0"
   },
   "dependencies": {

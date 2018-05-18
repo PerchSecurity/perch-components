@@ -13,6 +13,7 @@
     "react"
   ],
   "rules": {
-    "react/forbid-prop-types": 1
+    "react/forbid-prop-types": 1,
+    "no-else-return": 0
   }
 }
