@@ -115,18 +115,20 @@ const BaseTable = ({
       <div className={classes.topBar}>
         {searchable && (
           <SearchBar
-            onChange={onSearch}
-            debounce={1000}
             classes={{ searchBar: classes.searchBar }}
+            debounce={1000}
+            isHidden={Boolean(selectedCount)}
+            onChange={onSearch}
           />
         )}
-        {actions && (
-          <ActionBar
-            actions={actions}
-            classes={{ actionBar: classes.actionBar }}
-            items={selectedCount}
-          />
-        )}
+        {actions &&
+          selectedCount > 0 && (
+            <ActionBar
+              actions={actions}
+              classes={{ actionBar: classes.actionBar }}
+              items={selectedCount}
+            />
+          )}
       </div>
     )}
     <Table>

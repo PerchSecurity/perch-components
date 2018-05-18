@@ -40,7 +40,14 @@ class AutoTable extends React.Component {
       const { sortColumn, sortDirection } = getSortFromOrdering(
         nextProps.initialOrdering
       );
-      return { filter: nextProps.filter, page: 1, sortColumn, sortDirection };
+      return {
+        allItems: new Set(),
+        filter: nextProps.filter,
+        page: 1,
+        sortColumn,
+        sortDirection,
+        selectedItems: new Set()
+      };
     }
     return null;
   }
@@ -52,6 +59,7 @@ class AutoTable extends React.Component {
     const { sortColumn, sortDirection } = getSortFromOrdering(initialOrdering);
 
     this.state = {
+      allItems: new Set(),
       filter,
       ordering: initialOrdering,
       page: 1,
@@ -59,8 +67,7 @@ class AutoTable extends React.Component {
       search: null,
       sortColumn,
       sortDirection,
-      selectedItems: new Set(),
-      allItems: new Set()
+      selectedItems: new Set()
     };
   }
 
@@ -231,9 +238,7 @@ class AutoTable extends React.Component {
     }
 
     const variables = { ...filter, ordering, page, rowsPerPage, search };
-    const showSearchBar = searchable && selectedItems.size === 0;
 
-    const showTableActions = multiselectable && selectedItems.size > 0;
     const tableActions = multiselectActions.map(({ onClick, ...props }) => ({
       ...props,
       onClick: () => onClick([...selectedItems], { variables })
@@ -247,7 +252,7 @@ class AutoTable extends React.Component {
       <Data action={action} variables={variables}>
         {result => (
           <Table
-            actions={showTableActions ? tableActions : null}
+            actions={tableActions}
             columns={
               sortable
                 ? tableColumns
@@ -259,7 +264,7 @@ class AutoTable extends React.Component {
             pagination={
               pageable ? this.getPaginationForData(result.data) : null
             }
-            searchable={showSearchBar}
+            searchable={searchable}
             selectedCount={selectedItems.size}
             sortColumn={sortColumn}
             sortDirection={sortDirection}

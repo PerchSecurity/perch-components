@@ -16,6 +16,9 @@ const styles = theme => ({
     paddingRight: theme.spacing.unit * 3,
     borderBottom: "2px #D8D8D8 solid"
   },
+  hidden: {
+    display: "none"
+  },
   icon: {
     marginLeft: 8,
     marginRight: 16,
@@ -43,10 +46,10 @@ class SearchBar extends React.Component {
   debouncedOnChange = debounce(this.props.onChange, this.props.debounce);
 
   render() {
-    const { classes } = this.props;
+    const { classes, isHidden } = this.props;
     const { query } = this.state;
     return (
-      <div className={classes.searchBar}>
+      <div className={`${classes.searchBar} ${isHidden && classes.hidden}`}>
         <Input
           fullWidth
           disableUnderline
@@ -75,11 +78,13 @@ SearchBar.propTypes = {
     searchBar: PropTypes.string
   }).isRequired,
   debounce: PropTypes.number,
+  isHidden: PropTypes.bool,
   onChange: PropTypes.func.isRequired
 };
 
 SearchBar.defaultProps = {
-  debounce: DEBOUNCE_DURATION
+  debounce: DEBOUNCE_DURATION,
+  isHidden: false
 };
 
 export default withStyles(styles)(SearchBar);
