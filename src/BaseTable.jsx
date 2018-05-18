@@ -149,7 +149,7 @@ const BaseTable = ({
                   classes={classes}
                   hidden={column.hidden}
                   key={column.key || column.label}
-                  padding={headerPadding}
+                  padding={column.key ? "checkbox" : headerPadding}
                 >
                   {column.label}
                 </HeaderCell>
