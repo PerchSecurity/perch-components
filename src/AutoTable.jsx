@@ -92,10 +92,9 @@ class AutoTable extends React.Component {
 
   getTableBodyForResult = (
     { data, error, loading, refetch },
-    variables,
-    multiselectable
+    { columns, variables }
   ) => {
-    const { children, columns } = this.props;
+    const { children, multiselectable } = this.props;
     const { rowsPerPage, selectedItems } = this.state;
     const numColumns = multiselectable ? columns.length + 1 : columns;
 
@@ -109,12 +108,13 @@ class AutoTable extends React.Component {
       this.setState({ allItems: new Set(data.results) });
 
       return data.results.map(item => {
-        const cells = children(item, { data, refetch, variables });
+        const cells = children(item, { columns, data, refetch, variables });
         return (
           <TableRow hover key={JSON.stringify(item)}>
             {multiselectable && (
-              <TableCell padding="dense">
+              <TableCell padding="checkbox">
                 <Checkbox
+                  color="primary"
                   onChange={(event, checked) =>
                     this.handleSelectItem(item, checked)
                   }
@@ -214,10 +214,20 @@ class AutoTable extends React.Component {
       const multiselectColumn = {
         key: "select all",
         label: (
-          <Checkbox onChange={this.handleSelectAll} checked={isAllSelected} />
+          <Checkbox
+            color="primary"
+            onChange={this.handleSelectAll}
+            checked={isAllSelected}
+          />
         )
       };
-      tableColumns = [multiselectColumn, ...tableColumns];
+      tableColumns = [multiselectColumn, ...tableColumns].map(column => ({
+        ...column,
+        hidden:
+          selectedItems.size && column.hideOnMultiselect
+            ? { ...column.hidden, xsUp: true }
+            : column.hidden
+      }));
     }
 
     const variables = { ...filter, ordering, page, rowsPerPage, search };
@@ -228,6 +238,10 @@ class AutoTable extends React.Component {
       ...props,
       onClick: () => onClick([...selectedItems], { variables })
     }));
+
+    const columnsWithoutCheckbox = multiselectable
+      ? tableColumns.slice(1)
+      : tableColumns;
 
     return (
       <Data action={action} variables={variables}>
@@ -250,7 +264,10 @@ class AutoTable extends React.Component {
             sortColumn={sortColumn}
             sortDirection={sortDirection}
           >
-            {this.getTableBodyForResult(result, variables, multiselectable)}
+            {this.getTableBodyForResult(result, {
+              columns: columnsWithoutCheckbox,
+              variables
+            })}
           </Table>
         )}
       </Data>
