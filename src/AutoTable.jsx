@@ -95,7 +95,7 @@ class AutoTable extends React.Component {
     variables,
     multiselectable
   ) => {
-    const { renderItem, columns } = this.props;
+    const { children, columns } = this.props;
     const { rowsPerPage, selectedItems } = this.state;
     const numColumns = multiselectable ? columns.length + 1 : columns;
 
@@ -109,11 +109,11 @@ class AutoTable extends React.Component {
       this.setState({ allItems: new Set(data.results) });
 
       return data.results.map(item => {
-        const cells = renderItem(item, { data, refetch, variables });
+        const cells = children(item, { data, refetch, variables });
         return (
-          <TableRow>
+          <TableRow hover key={JSON.stringify(item)}>
             {multiselectable && (
-              <TableCell>
+              <TableCell padding="dense">
                 <Checkbox
                   onChange={(event, checked) =>
                     this.handleSelectItem(item, checked)
@@ -226,13 +226,14 @@ class AutoTable extends React.Component {
     const showTableActions = multiselectable && selectedItems.size > 0;
     const tableActions = multiselectActions.map(({ onClick, ...props }) => ({
       ...props,
-      onClick: () => onClick([...selectedItems])
+      onClick: () => onClick([...selectedItems], { variables })
     }));
 
     return (
       <Data action={action} variables={variables}>
         {result => (
           <Table
+            actions={showTableActions ? tableActions : null}
             columns={
               sortable
                 ? tableColumns
@@ -245,9 +246,9 @@ class AutoTable extends React.Component {
               pageable ? this.getPaginationForData(result.data) : null
             }
             searchable={showSearchBar}
+            selectedCount={selectedItems.size}
             sortColumn={sortColumn}
             sortDirection={sortDirection}
-            actions={showTableActions ? tableActions : null}
           >
             {this.getTableBodyForResult(result, variables, multiselectable)}
           </Table>
@@ -259,7 +260,7 @@ class AutoTable extends React.Component {
 
 AutoTable.propTypes = {
   action: PropTypes.func.isRequired,
-  renderItem: PropTypes.func.isRequired,
+  children: PropTypes.func.isRequired,
   columns: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,

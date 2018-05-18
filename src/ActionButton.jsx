@@ -23,7 +23,7 @@ const ActionButton = ({ classes, danger, icon, label, link, onClick }) => {
         onClick={onClick}
         {...linkProps}
       >
-        <Icon>{icon}</Icon>
+        {typeof icon === "string" ? <Icon>{icon}</Icon> : icon}
       </IconButton>
     </Tooltip>
   ) : (
@@ -42,7 +42,7 @@ const ActionButton = ({ classes, danger, icon, label, link, onClick }) => {
 ActionButton.propTypes = {
   classes: PropTypes.object.isRequired,
   danger: PropTypes.bool,
-  icon: PropTypes.string,
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   label: PropTypes.string.isRequired,
   link: PropTypes.string,
   onClick: PropTypes.func.isRequired
@@ -54,5 +54,6 @@ ActionButton.defaultProps = {
   link: null
 };
 
-export const ActionButtonPropTypes = ActionButton.propTypes;
+const { classes, ...ActionButtonPropTypes } = ActionButton.propTypes;
+export { ActionButtonPropTypes };
 export default withStyles(styles)(ActionButton);

@@ -32,7 +32,7 @@ const styles = () => ({
     flex: 1
   },
   actionBar: {
-    flex: 0
+    flex: 1
   }
 });
 
@@ -46,7 +46,8 @@ const HeaderCell = ({ children, classes, hidden, padding }) => (
 
 HeaderCell.propTypes = {
   classes: PropTypes.object.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    .isRequired,
   hidden: PropTypes.object,
   padding: PropTypes.string.isRequired
 };
@@ -96,6 +97,7 @@ SortableHeaderCell.defaultProps = {
 };
 
 const BaseTable = ({
+  actions,
   children,
   classes,
   columns,
@@ -104,7 +106,7 @@ const BaseTable = ({
   onSort,
   pagination,
   searchable,
-  actions,
+  selectedCount,
   sortColumn,
   sortDirection
 }) => (
@@ -122,6 +124,7 @@ const BaseTable = ({
           <ActionBar
             actions={actions}
             classes={{ actionBar: classes.actionBar }}
+            items={selectedCount}
           />
         )}
       </div>
@@ -195,6 +198,7 @@ const BaseTable = ({
 );
 
 BaseTable.propTypes = {
+  actions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(
@@ -219,21 +223,22 @@ BaseTable.propTypes = {
     rowsPerPageOptions: PropTypes.array
   }),
   searchable: PropTypes.bool,
-  actions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
+  selectedCount: PropTypes.number,
   sortColumn: PropTypes.string,
   sortDirection: PropTypes.string
 };
 
 BaseTable.defaultProps = {
+  actions: null,
   children: [],
   headerPadding: "default",
   onSearch: null,
   onSort: null,
   pagination: null,
   searchable: false,
+  selectedCount: 0,
   sortColumn: null,
-  sortDirection: null,
-  actions: null
+  sortDirection: null
 };
 
 export default withStyles(styles)(BaseTable);
