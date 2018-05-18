@@ -5,16 +5,19 @@ import { withStyles } from "material-ui/styles";
 import { ActionButton } from "./index";
 import { ActionButtonPropTypes } from "./ActionButton";
 
-const styles = {
+const styles = theme => ({
   actionBar: {
     height: 64,
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    paddingLeft: theme.spacing.unit * 3,
+    paddingRight: theme.spacing.unit * 3,
+    borderBottom: "2px #D8D8D8 solid"
   },
   text: {
     marginRight: "auto"
   }
-};
+});
 
 const ActionBar = ({ actions, classes, items }) => (
   <div className={classes.actionBar}>
