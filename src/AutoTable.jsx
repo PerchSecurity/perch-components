@@ -90,7 +90,7 @@ class AutoTable extends React.Component {
   getTableBodyForResult = ({ data, error, loading, refetch }, variables, multiselectable) => {
     const { renderItem, columns } = this.props;
     const { rowsPerPage, selectedItems } = this.state;
-    const numColumns = multiselectable ? columns.length + 1 : columns;
+    const numColumns = multiselectable ? columns.length + 1 : columns.length;
 
     if (error) {
       return <ErrorRow columnCount={numColumns} />;
