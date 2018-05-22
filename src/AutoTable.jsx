@@ -21,6 +21,20 @@ ErrorRow.propTypes = {
   columnCount: PropTypes.number.isRequired
 };
 
+const NoResultsRow = ({ columnCount }) => (
+  <TableRow>
+    <TableCell colSpan={columnCount}>
+      <Typography variant="caption" align="center">
+        No results found.
+      </Typography>
+    </TableCell>
+  </TableRow>
+);
+
+NoResultsRow.propTypes = {
+  columnCount: PropTypes.number.isRequired
+};
+
 const getSortFromOrdering = ordering => {
   let sortColumn;
   let sortDirection;
@@ -101,23 +115,38 @@ class AutoTable extends React.Component {
     { data, error, loading, refetch },
     { columns, variables }
   ) => {
-    const { children, multiselectable } = this.props;
+    const {
+      children,
+      multiselectable,
+      renderError,
+      renderNoResults
+    } = this.props;
     const { rowsPerPage, selectedItems } = this.state;
     const numColumns = multiselectable ? columns.length + 1 : columns.length;
 
     if (error) {
-      return <ErrorRow columnCount={numColumns} />;
+      return renderError ? (
+        renderError(error, { columns, data, refetch, variables })
+      ) : (
+        <ErrorRow columnCount={numColumns} />
+      );
     } else if (loading) {
       return [...Array(rowsPerPage || 1)].map((_, index) => (
         <LoadingRow key={index} rows={numColumns} /> // eslint-disable-line react/no-array-index-key
       ));
+    } else if (data && !data.results.length) {
+      return renderNoResults ? (
+        renderNoResults(null, { columns, data, refetch, variables })
+      ) : (
+        <NoResultsRow columnCount={numColumns} />
+      );
     } else if (data) {
       this.setState({ allItems: new Set(data.results) });
 
       return data.results.map(item => {
         const cells = children(item, { columns, data, refetch, variables });
         return (
-          <TableRow hover key={JSON.stringify(item)}>
+          <TableRow hover key={item.id || JSON.stringify(item)}>
             {multiselectable && (
               <TableCell padding="checkbox">
                 <Checkbox
@@ -299,6 +328,8 @@ AutoTable.propTypes = {
   headerPadding: PropTypes.string,
   initialOrdering: PropTypes.string,
   pageable: PropTypes.bool,
+  renderError: PropTypes.func,
+  renderNoResults: PropTypes.func,
   rowsPerPage: PropTypes.number,
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
   searchable: PropTypes.bool,
@@ -311,6 +342,8 @@ AutoTable.defaultProps = {
   filter: null,
   headerPadding: "default",
   pageable: false,
+  renderError: null,
+  renderNoResults: null,
   rowsPerPage: null,
   rowsPerPageOptions: [10, 25, 50, 100],
   searchable: false,
