@@ -21,6 +21,20 @@ ErrorRow.propTypes = {
   columnCount: PropTypes.number.isRequired
 };
 
+const NoResultsRow = ({ columnCount }) => (
+  <TableRow>
+    <TableCell colSpan={columnCount}>
+      <Typography variant="caption" align="center">
+        No results found.
+      </Typography>
+    </TableCell>
+  </TableRow>
+);
+
+NoResultsRow.propTypes = {
+  columnCount: PropTypes.number.isRequired
+};
+
 const getSortFromOrdering = ordering => {
   let sortColumn;
   let sortDirection;
@@ -111,6 +125,8 @@ class AutoTable extends React.Component {
       return [...Array(rowsPerPage || 1)].map((_, index) => (
         <LoadingRow key={index} rows={numColumns} /> // eslint-disable-line react/no-array-index-key
       ));
+    } else if (data && !data.results.length) {
+      return <NoResultsRow columnCount={numColumns} />;
     } else if (data) {
       this.setState({ allItems: new Set(data.results) });
 
