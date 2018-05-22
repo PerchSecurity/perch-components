@@ -241,7 +241,10 @@ class AutoTable extends React.Component {
 
     const tableActions = multiselectActions.map(({ onClick, ...props }) => ({
       ...props,
-      onClick: () => onClick([...selectedItems], { variables })
+      onClick: () => {
+        this.setState({ selectedItems: new Set() });
+        return onClick([...selectedItems], { variables });
+      }
     }));
 
     const columnsWithoutCheckbox = multiselectable

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.2
+
+- Clear selections after multiselect action is triggered
+
 ## 0.9.1
 
 - Fix null vs undefined sort props
