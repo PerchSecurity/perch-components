@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.0
+
+- Add default UI for a noResults state
+- Add renderError and renderNoResults for customization of states
+
 ## 0.9.3
 
 - Remove `type=search` for cross-browser consistency
