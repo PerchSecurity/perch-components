@@ -58,7 +58,6 @@ class SearchBar extends React.Component {
           placeholder="Search"
           onChange={event => this.handleChange(event.target.value)}
           startAdornment={<Icon className={classes.icon}>search</Icon>}
-          type="search"
           value={query}
         />
         {query && (

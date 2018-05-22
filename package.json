@@ -1,6 +1,6 @@
 {
   "name": "perch-components",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "React components for cross-application use at Perch Security",
   "main": "lib/index.js",
   "scripts": {

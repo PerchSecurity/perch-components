@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.3
+
+- Remove `type=search` for cross-browser consistency
+
 ## 0.9.2
 
 - Clear selections after multiselect action is triggered
