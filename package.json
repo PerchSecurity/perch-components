@@ -1,11 +1,12 @@
 {
   "name": "perch-components",
-  "version": "0.10.0",
+  "version": "1.0.0",
   "description": "React components for cross-application use at Perch Security",
   "main": "lib/index.js",
   "scripts": {
     "lib": "babel src --out-dir lib",
     "lint": "prettier --write src/**/*.{js,jsx} && eslint src/**",
+    "prepare": "npm run lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

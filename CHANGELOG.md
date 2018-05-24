@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0
+
+- Add docs to `/docs` folder
+- Remove `/lib` folder and replace with npm prepare script
+
 ## 0.10.0
 
 - Add default UI for a noResults state
