@@ -28,12 +28,6 @@ const styles = () => ({
     display: "flex",
     flexDirection: "row"
   },
-  searchBar: {
-    flex: 1
-  },
-  actionBar: {
-    flex: 1
-  }
 });
 
 const HeaderCell = ({ children, classes, hidden, padding }) => (
@@ -117,7 +111,6 @@ const BaseTable = ({
       <div className={classes.topBar}>
         {searchable && (
           <SearchBar
-            classes={{ searchBar: classes.searchBar }}
             debounce={1000}
             isHidden={Boolean(selectedCount)}
             onChange={onSearch}
@@ -127,8 +120,7 @@ const BaseTable = ({
           selectedCount > 0 && (
             <ActionBar
               actions={actions}
-              classes={{ actionBar: classes.actionBar }}
-              items={selectedCount}
+              text={`${selectedCount} selected`}
             />
           )}
       </div>

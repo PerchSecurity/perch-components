@@ -9,6 +9,7 @@ const styles = theme => ({
   actionBar: {
     height: 64,
     display: "flex",
+    flex: 1,
     alignItems: "center",
     paddingLeft: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
@@ -19,10 +20,10 @@ const styles = theme => ({
   }
 });
 
-const ActionBar = ({ actions, classes, items }) => (
+const ActionBar = ({ actions, classes, text }) => (
   <div className={classes.actionBar}>
     <Typography variant="title" className={classes.text}>
-      {items} selected
+      {text}
     </Typography>
     {actions.map(action => <ActionButton key={action.label} {...action} />)}
   </div>
@@ -31,7 +32,7 @@ const ActionBar = ({ actions, classes, items }) => (
 ActionBar.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)).isRequired,
   classes: PropTypes.object.isRequired,
-  items: PropTypes.number.isRequired
+  text: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(ActionBar);

@@ -11,6 +11,7 @@ const styles = theme => ({
   searchBar: {
     height: 64,
     display: "flex",
+    flex: 1,
     alignItems: "center",
     paddingLeft: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
