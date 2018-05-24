@@ -2,6 +2,8 @@
 
 Component for displaying a list of actions as buttons to the user.
 
+Used primarily in BaseTable for multiselect.
+
 ## Usage
 
 ```jsx
