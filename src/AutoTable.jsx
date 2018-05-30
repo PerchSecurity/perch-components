@@ -223,6 +223,7 @@ class AutoTable extends React.Component {
     const {
       action,
       headerPadding,
+      options,
       pageable,
       searchable,
       sortable,
@@ -285,7 +286,7 @@ class AutoTable extends React.Component {
       : tableColumns;
 
     return (
-      <Data action={action} variables={dataVariables}>
+      <Data action={action} options={options} variables={dataVariables}>
         {result => (
           <Table
             actions={tableActions}
@@ -332,6 +333,7 @@ AutoTable.propTypes = {
   initialOrdering: PropTypes.string,
   multiselectable: PropTypes.bool,
   multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
+  options: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   pageable: PropTypes.bool,
   renderError: PropTypes.func,
   renderNoResults: PropTypes.func,
@@ -354,6 +356,7 @@ AutoTable.defaultProps = {
   sortable: false,
   multiselectable: false,
   multiselectActions: [],
+  options: null,
   variables: null
 };
 
