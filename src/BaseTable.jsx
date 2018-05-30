@@ -20,6 +20,9 @@ const toggleSort = (column, prevColumn, prevDirection) =>
   column === prevColumn ? toggleDirection(prevDirection) : "asc";
 
 const styles = () => ({
+  fullWidthContainer: {
+    width: "100%"
+  },
   headerCell: {
     whiteSpace: "nowrap",
     textTransform: "uppercase"
@@ -103,6 +106,7 @@ const BaseTable = ({
   children,
   classes,
   columns,
+  fullWidth,
   headerPadding,
   onSearch,
   onSort,
@@ -112,7 +116,7 @@ const BaseTable = ({
   sortColumn,
   sortDirection
 }) => (
-  <div>
+  <div className={fullWidth ? classes.fullWidthContainer: undefined}>
     {(searchable || actions) && (
       <div className={classes.topBar}>
         {searchable && (
@@ -215,6 +219,7 @@ BaseTable.propTypes = {
       })
     ])
   ).isRequired,
+  fullWidth: PropTypes.bool,
   headerPadding: PropTypes.string,
   onSearch: PropTypes.func,
   onSort: PropTypes.func,
@@ -235,6 +240,7 @@ BaseTable.propTypes = {
 BaseTable.defaultProps = {
   actions: null,
   children: [],
+  fullWidth: false,
   headerPadding: "default",
   onSearch: null,
   onSort: null,
