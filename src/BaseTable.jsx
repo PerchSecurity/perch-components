@@ -116,7 +116,7 @@ const BaseTable = ({
   sortColumn,
   sortDirection
 }) => (
-  <div className={fullWidth ? classes.fullWidthContainer: undefined}>
+  <div className={fullWidth ? classes.fullWidthContainer : undefined}>
     {(searchable || actions) && (
       <div className={classes.topBar}>
         {searchable && (
