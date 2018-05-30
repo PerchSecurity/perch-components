@@ -50,13 +50,13 @@ const getSortFromOrdering = ordering => {
 
 class AutoTable extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (!isEqual(nextProps.filter, prevState.filter)) {
+    if (!isEqual(nextProps.variables, prevState.variables)) {
       const { sortColumn, sortDirection } = getSortFromOrdering(
         nextProps.initialOrdering
       );
       return {
         allItems: new Set(),
-        filter: nextProps.filter,
+        variables: nextProps.variables,
         page: 1,
         sortColumn,
         sortDirection,
@@ -69,19 +69,19 @@ class AutoTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const { filter, initialOrdering, rowsPerPage } = props;
+    const { initialOrdering, rowsPerPage, variables } = props;
     const { sortColumn, sortDirection } = getSortFromOrdering(initialOrdering);
 
     this.state = {
       allItems: new Set(),
-      filter,
       ordering: initialOrdering,
       page: 1,
       rowsPerPage,
       search: null,
       sortColumn,
       sortDirection,
-      selectedItems: new Set()
+      selectedItems: new Set(),
+      variables
     };
   }
 
@@ -123,7 +123,6 @@ class AutoTable extends React.Component {
     } = this.props;
     const { rowsPerPage, selectedItems } = this.state;
     const numColumns = multiselectable ? columns.length + 1 : columns.length;
-
     if (error) {
       return renderError ? (
         renderError(error, { columns, data, refetch, variables })
@@ -142,11 +141,16 @@ class AutoTable extends React.Component {
       );
     } else if (data) {
       this.setState({ allItems: new Set(data.results) });
-
-      return data.results.map(item => {
-        const cells = children(item, { columns, data, refetch, variables });
+      return data.results.map((item, index) => {
+        const cells = children(item, {
+          columns,
+          data,
+          index,
+          refetch,
+          variables
+        });
         return (
-          <TableRow hover key={item.id || JSON.stringify(item)}>
+          <TableRow hover key={item.id}>
             {multiselectable && (
               <TableCell padding="checkbox">
                 <Checkbox
@@ -228,7 +232,7 @@ class AutoTable extends React.Component {
     } = this.props;
 
     const {
-      filter,
+      variables,
       ordering,
       page,
       rowsPerPage,
@@ -266,7 +270,7 @@ class AutoTable extends React.Component {
       }));
     }
 
-    const variables = { ...filter, ordering, page, rowsPerPage, search };
+    const dataVariables = { ...variables, ordering, page, rowsPerPage, search };
 
     const tableActions = multiselectActions.map(({ onClick, ...props }) => ({
       ...props,
@@ -281,7 +285,7 @@ class AutoTable extends React.Component {
       : tableColumns;
 
     return (
-      <Data action={action} variables={variables}>
+      <Data action={action} variables={dataVariables}>
         {result => (
           <Table
             actions={tableActions}
@@ -303,7 +307,7 @@ class AutoTable extends React.Component {
           >
             {this.getTableBodyForResult(result, {
               columns: columnsWithoutCheckbox,
-              variables
+              dataVariables
             })}
           </Table>
         )}
@@ -324,9 +328,10 @@ AutoTable.propTypes = {
       })
     ])
   ).isRequired,
-  filter: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   headerPadding: PropTypes.string,
   initialOrdering: PropTypes.string,
+  multiselectable: PropTypes.bool,
+  multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   pageable: PropTypes.bool,
   renderError: PropTypes.func,
   renderNoResults: PropTypes.func,
@@ -334,12 +339,10 @@ AutoTable.propTypes = {
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
   searchable: PropTypes.bool,
   sortable: PropTypes.bool,
-  multiselectable: PropTypes.bool,
-  multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes))
+  variables: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 AutoTable.defaultProps = {
-  filter: null,
   headerPadding: "default",
   pageable: false,
   renderError: null,
@@ -350,7 +353,8 @@ AutoTable.defaultProps = {
   initialOrdering: null,
   sortable: false,
   multiselectable: false,
-  multiselectActions: []
+  multiselectActions: [],
+  variables: null
 };
 
 polyfill(AutoTable);
