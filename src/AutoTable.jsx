@@ -278,7 +278,7 @@ class AutoTable extends React.Component {
       ...props,
       onClick: () => {
         this.setState({ selectedItems: new Set() });
-        return onClick([...selectedItems], { variables });
+        return onClick([...selectedItems], { variables: dataVariables });
       }
     }));
 
@@ -310,7 +310,7 @@ class AutoTable extends React.Component {
           >
             {this.getTableBodyForResult(result, {
               columns: columnsWithoutCheckbox,
-              dataVariables
+              variables: dataVariables
             })}
           </Table>
         )}
