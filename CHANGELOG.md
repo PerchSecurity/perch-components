@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.12.0
+
+- Fix inccorect variables being passed within AutoTable
+
 ## 0.11.0
 
 - Add `fullWidth` prop to AutoTable/BaseTable
