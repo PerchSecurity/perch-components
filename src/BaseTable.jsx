@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Table, {
+import {
+  Hidden,
+  Table,
   TableBody,
   TableCell,
   TableFooter,
@@ -8,9 +10,8 @@ import Table, {
   TablePagination,
   TableSortLabel,
   TableRow
-} from "material-ui/Table";
-import { Hidden } from "material-ui";
-import { withStyles } from "material-ui/styles";
+} from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import { SearchBar, ActionBar } from "./";
 import { ActionButtonPropTypes } from "./ActionButton";
 

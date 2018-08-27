@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import zxcvbn from "zxcvbn";
-import { TextField } from "material-ui";
-import { withStyles } from "material-ui/styles";
-import { blue, green, pink, orange, teal } from "material-ui/colors";
+import { TextField } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { blue, green, pink, orange, teal } from "@material-ui/core/colors";
 
 const styles = {
   0: { color: pink[500] },

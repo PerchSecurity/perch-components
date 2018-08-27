@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Typography } from "material-ui";
-import { withStyles } from "material-ui/styles";
+import { Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import { ActionButton } from "./index";
 import { ActionButtonPropTypes } from "./ActionButton";
 
