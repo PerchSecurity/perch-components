@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Checkbox, MenuItem, TextField } from "material-ui";
+import { Checkbox, MenuItem, TextField } from "@material-ui/core";
 
 // See https://github.com/mui-org/material-ui/issues/10938 for why haxx
 // If using in an MUI modal/dialog, be sure to pass `disableEnforceFocus=true`

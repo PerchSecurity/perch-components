@@ -2,7 +2,7 @@ import React from "react";
 import { polyfill } from "react-lifecycles-compat";
 import PropTypes from "prop-types";
 import { Data } from "perch-data";
-import { TableRow, TableCell, Typography, Checkbox } from "material-ui";
+import { TableRow, TableCell, Typography, Checkbox } from "@material-ui/core";
 import isEqual from "lodash.isequal";
 import { BaseTable as Table, LoadingRow } from "./";
 import { ActionButtonPropTypes } from "./ActionButton";

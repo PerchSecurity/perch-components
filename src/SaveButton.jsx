@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "material-ui";
+import { Button } from "@material-ui/core";
 
 const SaveButton = (
   { forceSubmit, label, validationSchema, ...props },

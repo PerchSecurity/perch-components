@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon, IconButton, Input } from "material-ui";
-import { withStyles } from "material-ui/styles";
-import { grey } from "material-ui/colors";
+import { Icon, IconButton, Input } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { grey } from "@material-ui/core/colors";
 import debounce from "lodash.debounce";
 
 const DEBOUNCE_DURATION = 300;
