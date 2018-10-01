@@ -5,6 +5,20 @@
 - Add docs to `/docs` folder
 - Remove `/lib` folder and replace with npm prepare script
 
+## 0.13.0
+
+- Updated material-ui to 1.5.1
+
+## 0.12.0
+
+- Fix incorrect variables being passed within AutoTable
+
+## 0.11.0
+
+- Add `fullWidth` prop to AutoTable/BaseTable
+- Add `options` prop to AutoTable for Data
+- Rename AutoTable's `filter` => `variables`
+
 ## 0.10.0
 
 - Add default UI for a noResults state
