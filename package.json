@@ -1,5 +1,5 @@
 {
-  "name": "perch-components",
+  "name": "@perchsecurity/perch-components",
   "version": "1.0.0",
   "description": "React components for cross-application use at Perch Security",
   "main": "lib/index.js",
