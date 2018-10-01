@@ -24,7 +24,9 @@ const ActionBar = ({ actions, classes, items }) => (
     <Typography variant="title" className={classes.text}>
       {items} selected
     </Typography>
-    {actions.map(action => <ActionButton key={action.label} {...action} />)}
+    {actions.map(action => (
+      <ActionButton key={action.label} {...action} />
+    ))}
   </div>
 );
 

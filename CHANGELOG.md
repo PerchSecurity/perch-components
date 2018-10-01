@@ -1,12 +1,17 @@
 # Changelog
 
+## 1.0.0
+
+- Add docs to `/docs` folder
+- Remove `/lib` folder and replace with npm prepare script
+
 ## 0.13.0
 
 - Updated material-ui to 1.5.1
 
 ## 0.12.0
 
-- Fix inccorect variables being passed within AutoTable
+- Fix incorrect variables being passed within AutoTable
 
 ## 0.11.0
 
