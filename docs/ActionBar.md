@@ -21,7 +21,7 @@ const actions = [
   }
 ];
 
-<ActionBar actions={actions} text="4 items selected" />
+<ActionBar actions={actions} items={4} />
 ```
 
 ## API
@@ -29,4 +29,4 @@ const actions = [
 ### Props
 
 - `actions: Array<Object>` - Props to pass to individual [ActionButton](./ActionButton)s
-- `title: String` - text to display to the left of the actions
+- `items: Number` - Number of items to display as "selected" next to the actions
