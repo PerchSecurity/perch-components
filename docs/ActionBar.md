@@ -28,5 +28,5 @@ const actions = [
 
 ### Props
 
-- `actions: Array<Object>` - Props to pass to individual [ActionButton](./ActionButton)s
+- `actions: Array<Object>` - Props to pass to individual [ActionButton](./ActionButton.md)s
 - `items: Number` - Number of items to display as "selected" next to the actions
