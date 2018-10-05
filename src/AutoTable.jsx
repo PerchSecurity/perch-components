@@ -222,15 +222,16 @@ class AutoTable extends React.Component {
   render() {
     const {
       action,
+      columns,
       fullWidth,
       headerPadding,
+      multiselectable,
+      multiselectActions,
       options,
       pageable,
       searchable,
       sortable,
-      multiselectable,
-      multiselectActions,
-      columns
+      tableActions
     } = this.props;
 
     const {
@@ -274,7 +275,7 @@ class AutoTable extends React.Component {
 
     const dataVariables = { ...variables, ordering, page, rowsPerPage, search };
 
-    const tableActions = multiselectActions.map(({ onClick, ...props }) => ({
+    const multiselectActionsWithState = multiselectActions.map(({ onClick, ...props }) => ({
       ...props,
       onClick: () => {
         this.setState({ selectedItems: new Set() });
@@ -298,6 +299,7 @@ class AutoTable extends React.Component {
             }
             fullWidth={fullWidth}
             headerPadding={headerPadding}
+            multiselectActions={multiselectActionsWithState}
             onSearch={this.handleSearch}
             onSort={this.handleSort}
             pagination={
@@ -344,6 +346,7 @@ AutoTable.propTypes = {
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
   searchable: PropTypes.bool,
   sortable: PropTypes.bool,
+  tableActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   variables: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
@@ -361,6 +364,7 @@ AutoTable.defaultProps = {
   multiselectable: false,
   multiselectActions: [],
   options: null,
+  tableActions: [],
   variables: null
 };
 

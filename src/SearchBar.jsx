@@ -14,7 +14,6 @@ const styles = theme => ({
     alignItems: "center",
     paddingLeft: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
-    borderBottom: "2px #D8D8D8 solid"
   },
   hidden: {
     display: "none"
