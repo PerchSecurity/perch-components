@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- Add `tableActions` to AutoTable and BaseTable
+
 ## 1.0.0
 
 - Add docs to `/docs` folder

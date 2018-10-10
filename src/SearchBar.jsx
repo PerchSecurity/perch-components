@@ -13,8 +13,7 @@ const styles = theme => ({
     display: "flex",
     alignItems: "center",
     paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3,
-    borderBottom: "2px #D8D8D8 solid"
+    paddingRight: theme.spacing.unit * 3
   },
   hidden: {
     display: "none"

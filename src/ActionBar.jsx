@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { ActionButton } from "./index";
 import { ActionButtonPropTypes } from "./ActionButton";
@@ -11,19 +10,12 @@ const styles = theme => ({
     display: "flex",
     alignItems: "center",
     paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3,
-    borderBottom: "2px #D8D8D8 solid"
-  },
-  text: {
-    marginRight: "auto"
+    paddingRight: theme.spacing.unit * 3
   }
 });
 
-const ActionBar = ({ actions, classes, items }) => (
+const ActionBar = ({ actions, classes }) => (
   <div className={classes.actionBar}>
-    <Typography variant="title" className={classes.text}>
-      {items} selected
-    </Typography>
     {actions.map(action => (
       <ActionButton key={action.label} {...action} />
     ))}
@@ -32,8 +24,7 @@ const ActionBar = ({ actions, classes, items }) => (
 
 ActionBar.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)).isRequired,
-  classes: PropTypes.object.isRequired,
-  items: PropTypes.number.isRequired
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(ActionBar);

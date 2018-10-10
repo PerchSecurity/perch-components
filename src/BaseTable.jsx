@@ -9,7 +9,8 @@ import {
   TableHead,
   TablePagination,
   TableSortLabel,
-  TableRow
+  TableRow,
+  Typography
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { SearchBar, ActionBar } from "./";
@@ -20,7 +21,7 @@ const toggleDirection = direction => (direction === "asc" ? "desc" : "asc");
 const toggleSort = (column, prevColumn, prevDirection) =>
   column === prevColumn ? toggleDirection(prevDirection) : "asc";
 
-const styles = () => ({
+const styles = theme => ({
   fullWidthContainer: {
     width: "100%"
   },
@@ -30,13 +31,17 @@ const styles = () => ({
   },
   topBar: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    borderBottom: "2px #D8D8D8 solid"
   },
-  searchBar: {
+  grow: {
     flex: 1
   },
-  actionBar: {
-    flex: 1
+  multiBar: {
+    marginLeft: theme.spacing.unit * 3,
+    display: "flex",
+    alignItems: "center"
   }
 });
 
@@ -109,6 +114,7 @@ const BaseTable = ({
   columns,
   fullWidth,
   headerPadding,
+  multiselectActions,
   onSearch,
   onSort,
   pagination,
@@ -118,26 +124,26 @@ const BaseTable = ({
   sortDirection
 }) => (
   <div className={fullWidth ? classes.fullWidthContainer : undefined}>
-    {(searchable || actions) && (
-      <div className={classes.topBar}>
-        {searchable && (
-          <SearchBar
-            classes={{ searchBar: classes.searchBar }}
-            debounce={1000}
-            isHidden={Boolean(selectedCount)}
-            onChange={onSearch}
-          />
+    <div className={classes.topBar}>
+      {searchable && (
+        <SearchBar
+          classes={{ searchBar: classes.grow }}
+          debounce={1000}
+          isHidden={Boolean(selectedCount)}
+          onChange={onSearch}
+        />
+      )}
+      {multiselectActions.length > 0 &&
+        selectedCount > 0 && (
+          <div className={`${classes.grow} ${classes.multiBar}`}>
+            <Typography variant="title" className={classes.grow}>
+              {selectedCount} selected
+            </Typography>
+            <ActionBar actions={multiselectActions} />
+          </div>
         )}
-        {actions &&
-          selectedCount > 0 && (
-            <ActionBar
-              actions={actions}
-              classes={{ actionBar: classes.actionBar }}
-              items={selectedCount}
-            />
-          )}
-      </div>
-    )}
+      {actions.length > 0 && !selectedCount && <ActionBar actions={actions} />}
+    </div>
     <Table>
       <TableHead>
         <TableRow>
@@ -222,6 +228,7 @@ BaseTable.propTypes = {
   ).isRequired,
   fullWidth: PropTypes.bool,
   headerPadding: PropTypes.string,
+  multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   onSearch: PropTypes.func,
   onSort: PropTypes.func,
   pagination: PropTypes.shape({
@@ -243,6 +250,7 @@ BaseTable.defaultProps = {
   children: [],
   fullWidth: false,
   headerPadding: "default",
+  multiselectActions: null,
   onSearch: null,
   onSort: null,
   pagination: null,
