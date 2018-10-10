@@ -32,6 +32,7 @@ const styles = theme => ({
   topBar: {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "flex-end",
     borderBottom: "2px #D8D8D8 solid"
   },
   grow: {
