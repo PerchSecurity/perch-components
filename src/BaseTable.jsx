@@ -228,6 +228,7 @@ BaseTable.propTypes = {
   ).isRequired,
   fullWidth: PropTypes.bool,
   headerPadding: PropTypes.string,
+  multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   onSearch: PropTypes.func,
   onSort: PropTypes.func,
   pagination: PropTypes.shape({
@@ -249,6 +250,7 @@ BaseTable.defaultProps = {
   children: [],
   fullWidth: false,
   headerPadding: "default",
+  multiselectActions: null,
   onSearch: null,
   onSort: null,
   pagination: null,
