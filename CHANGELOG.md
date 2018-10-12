@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+- Add spinner for SaveButton loading state
+- Upgrade to Formik 1.x
+
 ## 1.1.0
 
 - Add `tableActions` to AutoTable and BaseTable

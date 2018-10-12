@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 
 const SaveButton = (
   { forceSubmit, label, validationSchema, ...props },
@@ -16,7 +16,8 @@ const SaveButton = (
       disabled={disabled}
       {...props}
     >
-      {label}
+      {!isSubmitting && label}
+      {isSubmitting && <CircularProgress size={24} />}
     </Button>
   );
 };
