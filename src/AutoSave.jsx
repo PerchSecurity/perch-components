@@ -6,10 +6,10 @@ import debounce from "lodash.debounce";
 const DEBOUNCE_DURATION = 1000;
 
 class AutoSave extends React.Component {
-  componentWillReceiveProps(nextProps, nextContext) {
-    const { validationSchema } = this.props;
-    const newValues = nextContext.formik.values;
-    const oldValues = this.context.formik.values;
+  componentWillReceiveProps(nextProps) {
+    const { formik, validationSchema } = this.props;
+    const newValues = nextProps.formik.values;
+    const oldValues = formik.values;
     const valuesHaveChanged = !isEqual(newValues, oldValues);
 
     if (valuesHaveChanged) {
@@ -19,7 +19,7 @@ class AutoSave extends React.Component {
     }
   }
 
-  saveForm = debounce(this.context.formik.submitForm, DEBOUNCE_DURATION);
+  saveForm = debounce(this.props.formik.submitForm, DEBOUNCE_DURATION);
 
   render() {
     return null;
@@ -27,11 +27,11 @@ class AutoSave extends React.Component {
 }
 
 AutoSave.propTypes = {
+  formik: PropTypes.shape({
+    submitForm: PropTypes.func,
+    values: PropTypes.object,
+  }).isRequired,
   validationSchema: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
-};
-
-AutoSave.contextTypes = {
-  formik: PropTypes.object
 };
 
 export default AutoSave;
