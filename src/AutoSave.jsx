@@ -29,7 +29,7 @@ class AutoSave extends React.Component {
 AutoSave.propTypes = {
   formik: PropTypes.shape({
     submitForm: PropTypes.func,
-    values: PropTypes.object,
+    values: PropTypes.object
   }).isRequired,
   validationSchema: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
