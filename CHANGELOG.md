@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+- Fix issue with context vs Consumer in Formik
+
 ## 1.2.0
 
 - Add spinner for SaveButton loading state
