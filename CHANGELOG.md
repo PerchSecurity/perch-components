@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.2
+
+- Add fallback key for rows without ids #28
+
 ## 1.2.1
 
 - Fix issue with context vs Consumer in Formik
