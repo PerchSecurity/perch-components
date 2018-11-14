@@ -150,7 +150,7 @@ class AutoTable extends React.Component {
           variables
         });
         return (
-          <TableRow hover key={item.id}>
+          <TableRow hover key={item.id || JSON.stringify(item)}>
             {multiselectable && (
               <TableCell padding="checkbox">
                 <Checkbox
