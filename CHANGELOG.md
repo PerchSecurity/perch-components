@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+- Upgrade to scoped and hosted perch-data package
+
 ## 1.2.2
 
 - Add fallback key for rows without ids #28
