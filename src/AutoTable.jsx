@@ -1,7 +1,7 @@
 import React from "react";
 import { polyfill } from "react-lifecycles-compat";
 import PropTypes from "prop-types";
-import { Data } from "perch-data";
+import { Data } from "@perchsecurity/perch-data";
 import { TableRow, TableCell, Typography, Checkbox } from "@material-ui/core";
 import isEqual from "lodash.isequal";
 import { BaseTable as Table, LoadingRow } from "./";
@@ -288,7 +288,7 @@ class AutoTable extends React.Component {
     const columnsWithoutCheckbox = multiselectable
       ? tableColumns.slice(1)
       : tableColumns;
-
+    
     return (
       <Data action={action} options={options} variables={dataVariables}>
         {result => (
