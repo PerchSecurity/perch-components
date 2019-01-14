@@ -133,15 +133,14 @@ const BaseTable = ({
           onChange={onSearch}
         />
       )}
-      {multiselectActions.length > 0 &&
-        selectedCount > 0 && (
-          <div className={`${classes.grow} ${classes.multiBar}`}>
-            <Typography variant="title" className={classes.grow}>
-              {selectedCount} selected
-            </Typography>
-            <ActionBar actions={multiselectActions} />
-          </div>
-        )}
+      {multiselectActions.length > 0 && selectedCount > 0 && (
+        <div className={`${classes.grow} ${classes.multiBar}`}>
+          <Typography variant="title" className={classes.grow}>
+            {selectedCount} selected
+          </Typography>
+          <ActionBar actions={multiselectActions} />
+        </div>
+      )}
       {actions.length > 0 && !selectedCount && <ActionBar actions={actions} />}
     </div>
     <Table>

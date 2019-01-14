@@ -247,8 +247,8 @@ class AutoTable extends React.Component {
     } = this.state;
 
     // Ensure all column descriptors are objects, for easy handling
-    let tableColumns = columns.map(
-      column => (typeof column === "string" ? { label: column } : column)
+    let tableColumns = columns.map(column =>
+      typeof column === "string" ? { label: column } : column
     );
 
     if (multiselectable) {
@@ -288,7 +288,7 @@ class AutoTable extends React.Component {
     const columnsWithoutCheckbox = multiselectable
       ? tableColumns.slice(1)
       : tableColumns;
-    
+
     return (
       <Data action={action} options={options} variables={dataVariables}>
         {result => (
