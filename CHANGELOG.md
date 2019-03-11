@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0
+
+- Upgrade perch-data and react-router, as well as other minor dependency updates
+
 ## 1.3.0
 
 - Upgrade to scoped and hosted perch-data package
