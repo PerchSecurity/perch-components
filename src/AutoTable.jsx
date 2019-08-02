@@ -224,7 +224,7 @@ class AutoTable extends React.Component {
       action,
       columns,
       fullWidth,
-      headerPadding,
+      headerSize,
       multiselectable,
       multiselectActions,
       options,
@@ -300,7 +300,7 @@ class AutoTable extends React.Component {
                 : tableColumns.map(({ sortId, ...column }) => column)
             }
             fullWidth={fullWidth}
-            headerPadding={headerPadding}
+            headerSize={headerSize}
             multiselectActions={multiselectActionsWithState}
             onSearch={this.handleSearch}
             onSort={this.handleSort}
@@ -336,7 +336,7 @@ AutoTable.propTypes = {
     ])
   ).isRequired,
   fullWidth: PropTypes.bool,
-  headerPadding: PropTypes.string,
+  headerSize: PropTypes.string,
   initialOrdering: PropTypes.string,
   multiselectable: PropTypes.bool,
   multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
@@ -354,7 +354,7 @@ AutoTable.propTypes = {
 
 AutoTable.defaultProps = {
   fullWidth: false,
-  headerPadding: "default",
+  headerSize: "small",
   pageable: false,
   renderError: null,
   renderNoResults: null,
