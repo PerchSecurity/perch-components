@@ -11,8 +11,8 @@ import {
   TableSortLabel,
   TableRow,
   Typography,
-  withStyles,
 } from "@material-ui/core";
+import { withStyles } from '@material-ui/style';
 import { SearchBar, ActionBar } from "./";
 import { ActionButtonPropTypes } from "./ActionButton";
 
