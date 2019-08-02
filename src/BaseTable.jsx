@@ -10,9 +10,9 @@ import {
   TablePagination,
   TableSortLabel,
   TableRow,
-  Typography
+  Typography,
+  withStyles,
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import { SearchBar, ActionBar } from "./";
 import { ActionButtonPropTypes } from "./ActionButton";
 

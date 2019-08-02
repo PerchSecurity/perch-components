@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon, IconButton, Input } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import { Icon, IconButton, Input, withStyles } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import debounce from "lodash.debounce";
 

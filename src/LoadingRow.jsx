@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { TableCell, TableRow } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import { TableCell, TableRow, withStyles } from "@material-ui/core";
 
 const styles = theme => ({
   rect: {
