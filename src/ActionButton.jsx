@@ -7,7 +7,7 @@ import {
   IconButton,
   Tooltip
 } from "@material-ui/core";
-import { withStyles } from '@material-ui/style';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   action: {

@@ -12,7 +12,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-import { withStyles } from '@material-ui/style';
+import { withStyles } from '@material-ui/styles';
 import { SearchBar, ActionBar } from "./";
 import { ActionButtonPropTypes } from "./ActionButton";
 

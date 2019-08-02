@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ActionButton } from "./index";
 import { ActionButtonPropTypes } from "./ActionButton";
-import { withStyles } from '@material-ui/style';
+import { withStyles } from '@material-ui/styles';
 
 const styles = theme => ({
   actionBar: {
