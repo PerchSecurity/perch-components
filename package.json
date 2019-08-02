@@ -1,6 +1,6 @@
 {
   "name": "@perchsecurity/perch-components",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "React components for cross-application use at Perch Security",
   "main": "lib/index.js",
   "scripts": {
@@ -54,7 +54,6 @@
     "react-test-renderer": "^16.8.4"
   },
   "dependencies": {
-    "@material-ui/codemod": "^4.3.0",
     "@material-ui/styles": "^4.3.0",
     "@perchsecurity/perch-data": "^1.2.0",
     "lodash.debounce": "^4.0.8",
