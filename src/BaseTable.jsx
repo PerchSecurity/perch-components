@@ -39,7 +39,7 @@ const styles = theme => ({
     flex: 1
   },
   multiBar: {
-    marginLeft: theme.spacing.unit * 3,
+    marginLeft: theme.spacing(3),
     display: "flex",
     alignItems: "center"
   }
