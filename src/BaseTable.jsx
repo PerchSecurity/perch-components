@@ -138,7 +138,7 @@ const BaseTable = ({
       )}
       {multiselectActions.length > 0 && selectedCount > 0 && (
         <div className={`${classes.grow} ${classes.multiBar}`}>
-          <Typography variant="title" className={classes.grow}>
+          <Typography variant="h6" className={classes.grow}>
             {selectedCount} selected
           </Typography>
           <ActionBar actions={multiselectActions} />
