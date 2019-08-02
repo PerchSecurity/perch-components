@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from '@material-ui/styles';
+
 import { ActionButton } from "./index";
 import { ActionButtonPropTypes } from "./ActionButton";
 
@@ -9,8 +10,8 @@ const styles = theme => ({
     height: 64,
     display: "flex",
     alignItems: "center",
-    paddingLeft: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3)
   }
 });
 

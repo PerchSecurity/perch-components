@@ -12,7 +12,8 @@ import {
   TableRow,
   Typography
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/styles";
+
 import { SearchBar, ActionBar } from "./";
 import { ActionButtonPropTypes } from "./ActionButton";
 
@@ -39,15 +40,15 @@ const styles = theme => ({
     flex: 1
   },
   multiBar: {
-    marginLeft: theme.spacing.unit * 3,
+    marginLeft: theme.spacing(3),
     display: "flex",
     alignItems: "center"
   }
 });
 
-const HeaderCell = ({ children, classes, hidden, padding }) => (
+const HeaderCell = ({ children, classes, hidden, padding, size }) => (
   <Hidden {...hidden}>
-    <TableCell className={classes.headerCell} padding={padding}>
+    <TableCell className={classes.headerCell} padding={padding} size={size}>
       {children}
     </TableCell>
   </Hidden>
@@ -58,7 +59,8 @@ HeaderCell.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
     .isRequired,
   hidden: PropTypes.object,
-  padding: PropTypes.string.isRequired
+  padding: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired
 };
 
 HeaderCell.defaultProps = {
@@ -71,12 +73,13 @@ const SortableHeaderCell = ({
   hidden,
   padding,
   onSort,
+  size,
   sortColumn,
   sortDirection,
   sortId
 }) => (
   <Hidden {...hidden}>
-    <TableCell className={classes.headerCell} padding={padding}>
+    <TableCell className={classes.headerCell} padding={padding} size={size}>
       <TableSortLabel
         active={sortColumn === sortId}
         direction={sortDirection}
@@ -96,6 +99,7 @@ SortableHeaderCell.propTypes = {
   hidden: PropTypes.object,
   onSort: PropTypes.func.isRequired,
   padding: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
   sortColumn: PropTypes.string,
   sortDirection: PropTypes.string,
   sortId: PropTypes.string.isRequired
@@ -113,7 +117,7 @@ const BaseTable = ({
   classes,
   columns,
   fullWidth,
-  headerPadding,
+  headerSize,
   multiselectActions,
   onSearch,
   onSort,
@@ -133,15 +137,14 @@ const BaseTable = ({
           onChange={onSearch}
         />
       )}
-      {multiselectActions.length > 0 &&
-        selectedCount > 0 && (
-          <div className={`${classes.grow} ${classes.multiBar}`}>
-            <Typography variant="title" className={classes.grow}>
-              {selectedCount} selected
-            </Typography>
-            <ActionBar actions={multiselectActions} />
-          </div>
-        )}
+      {multiselectActions.length > 0 && selectedCount > 0 && (
+        <div className={`${classes.grow} ${classes.multiBar}`}>
+          <Typography variant="h6" className={classes.grow}>
+            {selectedCount} selected
+          </Typography>
+          <ActionBar actions={multiselectActions} />
+        </div>
+      )}
       {actions.length > 0 && !selectedCount && <ActionBar actions={actions} />}
     </div>
     <Table>
@@ -150,11 +153,7 @@ const BaseTable = ({
           {columns.map(column => {
             if (typeof column === "string") {
               return (
-                <HeaderCell
-                  classes={classes}
-                  key={column}
-                  padding={headerPadding}
-                >
+                <HeaderCell classes={classes} key={column} size={headerSize}>
                   {column}
                 </HeaderCell>
               );
@@ -164,7 +163,8 @@ const BaseTable = ({
                   classes={classes}
                   hidden={column.hidden}
                   key={column.key || column.label}
-                  padding={column.key ? "checkbox" : headerPadding}
+                  padding={column.key && "checkbox"}
+                  size={headerSize}
                 >
                   {column.label}
                 </HeaderCell>
@@ -175,8 +175,8 @@ const BaseTable = ({
                 classes={classes}
                 hidden={column.hidden}
                 key={column.key || column.label}
+                size={headerSize}
                 sortId={column.sortId}
-                padding={headerPadding}
                 onSort={onSort}
                 sortColumn={sortColumn}
                 sortDirection={sortDirection}
@@ -227,7 +227,7 @@ BaseTable.propTypes = {
     ])
   ).isRequired,
   fullWidth: PropTypes.bool,
-  headerPadding: PropTypes.string,
+  headerSize: PropTypes.string,
   multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   onSearch: PropTypes.func,
   onSort: PropTypes.func,

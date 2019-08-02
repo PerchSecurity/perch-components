@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0
+
+- Upgrade to Material UI v4
+
 ## 1.4.0
 
 - Upgrade perch-data and react-router, as well as other minor dependency updates
