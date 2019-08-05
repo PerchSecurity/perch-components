@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+- Add `padding` and `size` props to Auto/BaseTable [(new in MUI v4)](https://material-ui.com/api/table/)
+
 ## 2.0.0
 
 - Upgrade to Material UI v4

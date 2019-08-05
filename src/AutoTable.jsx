@@ -224,12 +224,13 @@ class AutoTable extends React.Component {
       action,
       columns,
       fullWidth,
-      headerSize,
       multiselectable,
       multiselectActions,
       options,
+      padding,
       pageable,
       searchable,
+      size,
       sortable,
       tableActions
     } = this.props;
@@ -300,15 +301,16 @@ class AutoTable extends React.Component {
                 : tableColumns.map(({ sortId, ...column }) => column)
             }
             fullWidth={fullWidth}
-            headerSize={headerSize}
             multiselectActions={multiselectActionsWithState}
             onSearch={this.handleSearch}
             onSort={this.handleSort}
+            padding={padding}
             pagination={
               pageable ? this.getPaginationForData(result.data) : null
             }
             searchable={searchable}
             selectedCount={selectedItems.size}
+            size={size}
             sortColumn={sortColumn}
             sortDirection={sortDirection}
           >
@@ -336,17 +338,18 @@ AutoTable.propTypes = {
     ])
   ).isRequired,
   fullWidth: PropTypes.bool,
-  headerSize: PropTypes.string,
   initialOrdering: PropTypes.string,
   multiselectable: PropTypes.bool,
   multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   options: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  padding: PropTypes.string,
   pageable: PropTypes.bool,
   renderError: PropTypes.func,
   renderNoResults: PropTypes.func,
   rowsPerPage: PropTypes.number,
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
   searchable: PropTypes.bool,
+  size: PropTypes.string,
   sortable: PropTypes.bool,
   tableActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   variables: PropTypes.object // eslint-disable-line react/forbid-prop-types
@@ -354,18 +357,19 @@ AutoTable.propTypes = {
 
 AutoTable.defaultProps = {
   fullWidth: false,
-  headerSize: "small",
+  initialOrdering: null,
+  multiselectable: false,
+  multiselectActions: [],
+  options: null,
+  padding: undefined,
   pageable: false,
   renderError: null,
   renderNoResults: null,
   rowsPerPage: null,
   rowsPerPageOptions: [10, 25, 50, 100],
   searchable: false,
-  initialOrdering: null,
+  size: undefined,
   sortable: false,
-  multiselectable: false,
-  multiselectActions: [],
-  options: null,
   tableActions: [],
   variables: null
 };

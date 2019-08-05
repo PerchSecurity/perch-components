@@ -46,40 +46,38 @@ const styles = theme => ({
   }
 });
 
-const HeaderCell = ({ children, classes, hidden, padding, size }) => (
+const HeaderCell = ({ children, classes, hidden, padding }) => (
   <Hidden {...hidden}>
-    <TableCell className={classes.headerCell} padding={padding} size={size}>
+    <TableCell className={classes.headerCell} padding={padding}>
       {children}
     </TableCell>
   </Hidden>
 );
 
 HeaderCell.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
     .isRequired,
-  hidden: PropTypes.object,
-  padding: PropTypes.string.isRequired,
-  size: PropTypes.string.isRequired
+  hidden: PropTypes.object, // eslint-disable-line
+  padding: PropTypes.string
 };
 
 HeaderCell.defaultProps = {
-  hidden: null
+  hidden: null,
+  padding: undefined
 };
 
 const SortableHeaderCell = ({
   children,
   classes,
   hidden,
-  padding,
   onSort,
-  size,
   sortColumn,
   sortDirection,
   sortId
 }) => (
   <Hidden {...hidden}>
-    <TableCell className={classes.headerCell} padding={padding} size={size}>
+    <TableCell className={classes.headerCell}>
       <TableSortLabel
         active={sortColumn === sortId}
         direction={sortDirection}
@@ -94,12 +92,10 @@ const SortableHeaderCell = ({
 );
 
 SortableHeaderCell.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
   children: PropTypes.string.isRequired,
-  hidden: PropTypes.object,
+  hidden: PropTypes.object, // eslint-disable-line
   onSort: PropTypes.func.isRequired,
-  padding: PropTypes.string.isRequired,
-  size: PropTypes.string.isRequired,
   sortColumn: PropTypes.string,
   sortDirection: PropTypes.string,
   sortId: PropTypes.string.isRequired
@@ -117,13 +113,14 @@ const BaseTable = ({
   classes,
   columns,
   fullWidth,
-  headerSize,
   multiselectActions,
   onSearch,
   onSort,
+  padding,
   pagination,
   searchable,
   selectedCount,
+  size,
   sortColumn,
   sortDirection
 }) => (
@@ -147,13 +144,13 @@ const BaseTable = ({
       )}
       {actions.length > 0 && !selectedCount && <ActionBar actions={actions} />}
     </div>
-    <Table>
+    <Table padding={padding} size={size}>
       <TableHead>
         <TableRow>
           {columns.map(column => {
             if (typeof column === "string") {
               return (
-                <HeaderCell classes={classes} key={column} size={headerSize}>
+                <HeaderCell classes={classes} key={column}>
                   {column}
                 </HeaderCell>
               );
@@ -164,7 +161,6 @@ const BaseTable = ({
                   hidden={column.hidden}
                   key={column.key || column.label}
                   padding={column.key && "checkbox"}
-                  size={headerSize}
                 >
                   {column.label}
                 </HeaderCell>
@@ -175,7 +171,6 @@ const BaseTable = ({
                 classes={classes}
                 hidden={column.hidden}
                 key={column.key || column.label}
-                size={headerSize}
                 sortId={column.sortId}
                 onSort={onSort}
                 sortColumn={sortColumn}
@@ -215,7 +210,7 @@ const BaseTable = ({
 BaseTable.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired, // eslint-disable-line
   columns: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -227,10 +222,10 @@ BaseTable.propTypes = {
     ])
   ).isRequired,
   fullWidth: PropTypes.bool,
-  headerSize: PropTypes.string,
   multiselectActions: PropTypes.arrayOf(PropTypes.shape(ActionButtonPropTypes)),
   onSearch: PropTypes.func,
   onSort: PropTypes.func,
+  padding: PropTypes.string,
   pagination: PropTypes.shape({
     count: PropTypes.number, // Total number of rows
     onChangePage: PropTypes.func,
@@ -241,6 +236,7 @@ BaseTable.propTypes = {
   }),
   searchable: PropTypes.bool,
   selectedCount: PropTypes.number,
+  size: PropTypes.string,
   sortColumn: PropTypes.string,
   sortDirection: PropTypes.string
 };
@@ -249,13 +245,14 @@ BaseTable.defaultProps = {
   actions: null,
   children: [],
   fullWidth: false,
-  headerPadding: "default",
   multiselectActions: null,
   onSearch: null,
   onSort: null,
+  padding: undefined,
   pagination: null,
   searchable: false,
   selectedCount: 0,
+  size: undefined,
   sortColumn: undefined,
   sortDirection: undefined
 };
