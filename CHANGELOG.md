@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1
+
+- Fix styling for AutoTable messages
+
 ## 2.1.0
 
 - Add `padding` and `size` props to Auto/BaseTable [(new in MUI v4)](https://material-ui.com/api/table/)

@@ -7,11 +7,18 @@ import isEqual from "lodash.isequal";
 import { BaseTable as Table, LoadingRow } from "./";
 import { ActionButtonPropTypes } from "./ActionButton";
 
+const messageStyle = { padding: "16px" };
+
 const ErrorRow = ({ columnCount }) => (
   <TableRow>
     <TableCell colSpan={columnCount}>
-      <Typography variant="caption" align="center">
-        An error occurred while fetching this data.
+      <Typography
+        align="center"
+        component="p"
+        style={messageStyle}
+        variant="caption"
+      >
+        An error occurred while fetching this data
       </Typography>
     </TableCell>
   </TableRow>
@@ -24,8 +31,13 @@ ErrorRow.propTypes = {
 const NoResultsRow = ({ columnCount }) => (
   <TableRow>
     <TableCell colSpan={columnCount}>
-      <Typography variant="caption" align="center">
-        No results found.
+      <Typography
+        align="center"
+        component="p"
+        style={messageStyle}
+        variant="caption"
+      >
+        No results found
       </Typography>
     </TableCell>
   </TableRow>
@@ -248,8 +260,8 @@ class AutoTable extends React.Component {
     } = this.state;
 
     // Ensure all column descriptors are objects, for easy handling
-    let tableColumns = columns.map(
-      column => (typeof column === "string" ? { label: column } : column)
+    let tableColumns = columns.map(column =>
+      typeof column === "string" ? { label: column } : column
     );
 
     if (multiselectable) {
@@ -289,7 +301,7 @@ class AutoTable extends React.Component {
     const columnsWithoutCheckbox = multiselectable
       ? tableColumns.slice(1)
       : tableColumns;
-    
+
     return (
       <Data action={action} options={options} variables={dataVariables}>
         {result => (

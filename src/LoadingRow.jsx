@@ -27,7 +27,7 @@ const styles = theme => ({
 const LoadingRow = ({ classes, rows }) => (
   <TableRow>
     {[...Array(rows)].map((_, index) => (
-      <TableCell key={index} padding="none">
+      <TableCell key={index}>
         <div className={classes.rect} />
       </TableCell>
     ))}
