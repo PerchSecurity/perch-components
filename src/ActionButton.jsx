@@ -1,13 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  Icon,
-  IconButton,
-  Tooltip
-} from "@material-ui/core";
-import { withStyles } from '@material-ui/styles';
+import { Button, Icon, IconButton, Tooltip } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
 
 const styles = theme => ({
   action: {
@@ -51,13 +46,14 @@ ActionButton.propTypes = {
   icon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   label: PropTypes.string.isRequired,
   link: PropTypes.string,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func
 };
 
 ActionButton.defaultProps = {
   danger: null,
   icon: null,
-  link: null
+  link: null,
+  onClick: () => {}
 };
 
 const { classes, ...ActionButtonPropTypes } = ActionButton.propTypes;
