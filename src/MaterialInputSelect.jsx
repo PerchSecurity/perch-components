@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Checkbox, MenuItem, TextField } from "@material-ui/core";
+import { getIn } from "formik";
 
 // See https://github.com/mui-org/material-ui/issues/10938 for why haxx
 // If using in an MUI modal/dialog, be sure to pass `disableEnforceFocus=true`
@@ -32,8 +33,8 @@ const MaterialInputSelect = ({
       value={
         field.value !== undefined ? field.value : defaultValue(multiSelect)
       }
-      error={Boolean(touched[field.name] && errors[field.name])}
-      label={(touched[field.name] && errors[field.name]) || label}
+      error={Boolean(getIn(touched, field.name) && getIn(errors, field.name))}
+      label={(getIn(touched, field.name) && getIn(errors, field.name)) || label}
       onBlur={event => {
         event.target.name = field.name; // eslint-disable-line
         handleBlur(event);

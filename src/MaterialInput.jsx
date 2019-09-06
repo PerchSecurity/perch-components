@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@material-ui/core";
+import { getIn } from "formik";
 
 const MaterialInput = ({
   field,
@@ -12,8 +13,8 @@ const MaterialInput = ({
     {...props}
     {...field}
     value={field.value !== undefined ? field.value : ""}
-    error={Boolean(touched[field.name] && errors[field.name])}
-    label={(touched[field.name] && errors[field.name]) || label}
+    error={Boolean(getIn(touched, field.name) && getIn(errors, field.name))}
+    label={(getIn(touched, field.name) && getIn(errors, field.name)) || label}
   />
 );
 

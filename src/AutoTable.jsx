@@ -288,16 +288,17 @@ class AutoTable extends React.Component {
 
     const dataVariables = { ...variables, ordering, page, rowsPerPage, search };
 
-    const multiselectActionsWithState = multiselectActions.map(
-      ({ onClick, ...props }) => ({
+    const multiselectActionsWithState = ({ refetch }) =>
+      multiselectActions.map(({ onClick, ...props }) => ({
         ...props,
         onClick: () => {
           this.setState({ selectedItems: new Set() });
-          return onClick([...selectedItems], { variables: dataVariables });
+          return onClick([...selectedItems], {
+            variables: dataVariables,
+            refetch
+          });
         }
-      })
-    );
-
+      }));
     const columnsWithoutCheckbox = multiselectable
       ? tableColumns.slice(1)
       : tableColumns;
@@ -313,7 +314,7 @@ class AutoTable extends React.Component {
                 : tableColumns.map(({ sortId, ...column }) => column)
             }
             fullWidth={fullWidth}
-            multiselectActions={multiselectActionsWithState}
+            multiselectActions={multiselectActionsWithState(result)}
             onSearch={this.handleSearch}
             onSort={this.handleSort}
             padding={padding}
