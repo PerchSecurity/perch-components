@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.0
+
+- Add support for nested Formik fields
+- Upgrade dependencies
+
 ## 2.1.1
 
 - Fix styling for AutoTable messages
